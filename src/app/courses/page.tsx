@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import CinematicVideo from "@/components/home/CinematicVideo";
 import CourseGrid from "@/components/courses/CourseGrid";
 import WebinarsSection from "@/components/webinar/WebinarsSection";
 
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default function CoursesPage() {
   return (
     <>
-      <section className="py-20 sm:py-28">
+      <section className="py-20 sm:pb-10 sm:pt-28">
         <Container>
           <SectionHeading
             eyebrow="Athenix Learning"
@@ -22,6 +23,9 @@ export default function CoursesPage() {
           />
         </Container>
       </section>
+      <Container className="pb-4">
+        <CinematicVideo videoKey="learning" />
+      </Container>
       <CourseGrid />
       <WebinarsSection />
     </>

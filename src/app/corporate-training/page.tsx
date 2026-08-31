@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import CinematicVideo from "@/components/home/CinematicVideo";
 import CorporateTraining from "@/components/corporate/CorporateTraining";
 import CorporateLogoStrip from "@/components/corporate/CorporateLogoStrip";
 import CorporateExperience from "@/components/corporate/CorporateExperience";
@@ -16,6 +17,9 @@ export default function CorporateTrainingPage() {
   return (
     <>
       <CorporateTraining />
+      <Container className="pb-16">
+        <CinematicVideo videoKey="corporateTraining" />
+      </Container>
       <CorporateLogoStrip />
       <CorporateExperience />
       <section id="corporate-form" className="py-20 sm:py-28">

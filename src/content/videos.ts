@@ -15,8 +15,8 @@ export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
     description: "Human expertise, AI and data, brought together in practical learning.",
   },
   learning: {
-    poster: images.trainerStage2,
-    mp4: "",
+    poster: images.trainerStage1,
+    mp4: "/videos/learning.mp4",
     title: "Athenix Learning",
     description: "Practical AI and data learning built for real professional impact.",
   },
@@ -27,8 +27,8 @@ export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
     description: "AI, data and automation systems built for how your business runs.",
   },
   corporateTraining: {
-    poster: images.corporateGreatwhiteLobby,
-    mp4: "",
+    poster: images.trainerStage1,
+    mp4: "/videos/corporate-training.mp4",
     title: "Corporate AI & Data Training",
     description: "Hands-on AI and data training delivered inside real teams.",
   },
