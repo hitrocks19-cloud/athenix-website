@@ -21,9 +21,6 @@ export default function TrainerProfile() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.01]">
-                <SmartImage asset={images.trainerStage1} fill className="object-cover" sizes="600px" />
-              </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
                 <SmartImage asset={leadTrainer.photo} fill className="object-cover" sizes="300px" />
               </div>
