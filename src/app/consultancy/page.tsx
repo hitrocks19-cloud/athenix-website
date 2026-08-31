@@ -43,7 +43,7 @@ export default function ConsultancyPage() {
       </section>
 
       <Container className="-mt-6 sm:-mt-10">
-        <CinematicVideo videoKey="consultancy" />
+        <CinematicVideo videoKey="consultancy" allowUnmute />
       </Container>
 
       <PinnedRevealSection
