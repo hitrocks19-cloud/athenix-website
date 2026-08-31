@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
 import { heroCopy, siteStats } from "@/content/site";
@@ -8,19 +9,39 @@ import { trackEvent } from "@/lib/analytics";
 
 export default function Hero() {
   const { open } = useWebinarModal();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+
+  // Depth-parallax: background orbs drift opposite the cursor, giving the
+  // hero a sense of 3D depth. Small magnitude — this is meant to be felt,
+  // not noticed as a gimmick.
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.matchMedia("(hover: none)").matches) return;
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5..0.5
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    setParallax({ x, y });
+  }, []);
 
   return (
-    <section className="relative overflow-hidden bg-ink-950">
+    <section ref={sectionRef} onMouseMove={handleMouseMove} className="relative overflow-hidden bg-ink-950">
       <div className="pointer-events-none absolute inset-0 bg-athenix-glow" />
-      <div className="pointer-events-none absolute -left-32 top-10 h-72 w-72 animate-floatY rounded-full bg-magenta-500/20 blur-[100px]" />
       <div
-        className="pointer-events-none absolute -right-24 top-32 h-80 w-80 animate-floatY rounded-full bg-flare-500/20 blur-[110px]"
-        style={{ animationDelay: "1.5s" }}
+        className="pointer-events-none absolute -left-32 top-10 h-72 w-72 animate-floatY rounded-full bg-magenta-500/20 blur-[100px] transition-transform duration-300 ease-out"
+        style={{ transform: `translate3d(${parallax.x * -30}px, ${parallax.y * -30}px, 0)` }}
+      />
+      <div
+        className="pointer-events-none absolute -right-24 top-32 h-80 w-80 animate-floatY rounded-full bg-flare-500/20 blur-[110px] transition-transform duration-300 ease-out"
+        style={{ animationDelay: "1.5s", transform: `translate3d(${parallax.x * 40}px, ${parallax.y * 40}px, 0)` }}
       />
       <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.03]" />
 
       <Container className="relative py-24 sm:py-32">
-        <div className="mx-auto max-w-3xl text-center">
+        <div
+          className="mx-auto max-w-3xl text-center transition-transform duration-300 ease-out"
+          style={{ transform: `translate3d(${parallax.x * -8}px, ${parallax.y * -8}px, 0)` }}
+        >
           <span className="mb-6 inline-flex origin-top animate-fadeInUp items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-medium text-white/70 opacity-0">
             Athenix Learning · Athenix Consultancy
           </span>

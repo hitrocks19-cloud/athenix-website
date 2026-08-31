@@ -10,7 +10,7 @@ import { images } from "./images";
 export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
   hero: {
     poster: images.trainerStage1,
-    mp4: "",
+    mp4: "/videos/hero.mp4",
     title: "Athenix — Build Skills. Apply AI. Create Impact.",
     description: "Human expertise, AI and data, brought together in practical learning.",
   },

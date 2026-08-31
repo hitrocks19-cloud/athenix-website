@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:hero-video": "node --env-file=.env.local scripts/generate-hero-video.mjs"
   },
   "dependencies": {
     "next": "^16.3.2",
@@ -15,6 +16,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.65.0",
     "@eslint/eslintrc": "^3.2.0",
     "@types/node": "^20.14.9",
     "@types/react": "^19.0.0",

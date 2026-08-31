@@ -1,4 +1,5 @@
 import { ConsultancyService } from "@/types";
+import TiltCard from "@/components/ui/TiltCard";
 
 const icons: Record<ConsultancyService["icon"], string> = {
   ai: "M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z",
@@ -14,21 +15,23 @@ const icons: Record<ConsultancyService["icon"], string> = {
 
 export default function ConsultancyServiceCard({ service }: { service: ConsultancyService }) {
   return (
-    <div className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-magenta-400/30 hover:bg-white/[0.05] hover:shadow-glow">
-      <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-athenix-line/20 transition-transform duration-300 group-hover:scale-110">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d={icons[service.icon]}
-            stroke="currentColor"
-            className="text-amber-400"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+    <TiltCard>
+      <div className="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-colors duration-300 hover:border-magenta-400/30 hover:bg-white/[0.05] hover:shadow-glow">
+        <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-athenix-line/20 transition-transform duration-300 group-hover:scale-110">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d={icons[service.icon]}
+              stroke="currentColor"
+              className="text-amber-400"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+        <h3 className="font-display text-base font-semibold text-white">{service.name}</h3>
+        <p className="mt-2 text-sm text-white/60">{service.description}</p>
       </div>
-      <h3 className="font-display text-base font-semibold text-white">{service.name}</h3>
-      <p className="mt-2 text-sm text-white/60">{service.description}</p>
-    </div>
+    </TiltCard>
   );
 }
