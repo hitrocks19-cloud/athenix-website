@@ -3,7 +3,9 @@
 import { useCallback, useRef, useState } from "react";
 import { ButtonLink } from "@/components/ui/Button";
 import Container from "@/components/ui/Container";
+import SmartImage from "@/components/ui/SmartImage";
 import { heroCopy, siteStats } from "@/content/site";
+import { images } from "@/content/images";
 import { useWebinarModal } from "@/components/webinar/WebinarModalContext";
 import { trackEvent } from "@/lib/analytics";
 
@@ -36,6 +38,21 @@ export default function Hero() {
         style={{ animationDelay: "1.5s", transform: `translate3d(${parallax.x * 40}px, ${parallax.y * 40}px, 0)` }}
       />
       <div className="pointer-events-none absolute inset-0 bg-grain opacity-[0.03]" />
+
+      {/* 3D rotating brand mark — a genuine perspective Y-axis spin (not a
+          flat CSS spin), sitting low-opacity behind the hero copy. Tied
+          into the same cursor-parallax as the orbs for extra depth. */}
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center transition-transform duration-300 ease-out"
+        style={{ transform: `translate3d(${parallax.x * 20}px, ${parallax.y * 20}px, 0)`, perspective: "1400px" }}
+      >
+        <div
+          className="relative h-[320px] w-[320px] animate-spin3d opacity-[0.14] sm:h-[460px] sm:w-[460px] lg:h-[560px] lg:w-[560px]"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          <SmartImage asset={images.logoMark} fill className="object-contain drop-shadow-[0_0_60px_rgba(224,36,192,0.35)]" />
+        </div>
+      </div>
 
       <Container className="relative py-24 sm:py-32">
         <div

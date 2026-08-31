@@ -65,6 +65,7 @@ const config: Config = {
         marquee: "marquee 28s linear infinite",
         fadeInUp: "fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         countUp: "fadeIn 0.4s ease forwards",
+        spin3d: "spin3d 14s linear infinite",
       },
       keyframes: {
         pulseSlow: {
@@ -90,6 +91,11 @@ const config: Config = {
         fadeIn: {
           from: { opacity: "0" },
           to: { opacity: "1" },
+        },
+        spin3d: {
+          "0%": { transform: "rotateY(0deg) rotateX(8deg)" },
+          "50%": { transform: "rotateY(180deg) rotateX(-8deg)" },
+          "100%": { transform: "rotateY(360deg) rotateX(8deg)" },
         },
       },
       backgroundSize: {
