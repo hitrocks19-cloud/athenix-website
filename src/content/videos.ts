@@ -21,8 +21,8 @@ export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
     description: "Practical AI and data learning built for real professional impact.",
   },
   consultancy: {
-    poster: images.corporateGreatwhiteBoardroom,
-    mp4: "",
+    poster: images.trainerPortrait,
+    mp4: "/videos/consultancy.mp4",
     title: "Athenix Consultancy",
     description: "AI, data and automation systems built for how your business runs.",
   },
