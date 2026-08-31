@@ -2,7 +2,6 @@ import { GalleryItem } from "@/types";
 import { images } from "./images";
 
 export const trainingGallery: GalleryItem[] = [
-  { image: images.trainerStage1, category: "Stage" },
   { image: images.trainerStage2, category: "Stage" },
   { image: images.corporateGreatwhiteBoardroom, category: "Corporate" },
   { image: images.corporateGreatwhiteLobby, category: "Corporate" },
