@@ -26,7 +26,7 @@ export default function CoursesPage() {
       </section>
       <Container className="pb-4">
         <ClipReveal shape="circle">
-          <CinematicVideo videoKey="learning" />
+          <CinematicVideo videoKey="learning" allowUnmute />
         </ClipReveal>
       </Container>
       <CourseGrid />
