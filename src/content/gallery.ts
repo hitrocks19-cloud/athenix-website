@@ -8,6 +8,8 @@ export const trainingGallery: GalleryItem[] = [
   { image: images.corporateSalesMarketingTeam, category: "Corporate" },
   { image: images.corporateRadhaKrishnaHr, category: "Corporate" },
   { image: images.liveSessionCall, category: "Workshop" },
+  { image: images.liveSessionMeetGrid, category: "Workshop" },
+  { image: images.liveSessionTeamsGrid, category: "Workshop" },
 ];
 
 export const galleryCategories = ["All", "Corporate", "Workshop"] as const;

@@ -93,7 +93,17 @@ export const images = {
   },
   liveSessionCall: {
     src: "/images/gallery/live-session-call.jpg",
-    alt: "Live online training session with participants",
+    alt: "Advanced Excel live training session with 100+ corporate professionals",
+    label: "Advanced Excel — 100+ corporate professionals",
+  },
+  liveSessionMeetGrid: {
+    src: "/images/gallery/live-session-meet-grid.jpg",
+    alt: "Live online training session video call with learners",
+    label: "Live training session",
+  },
+  liveSessionTeamsGrid: {
+    src: "/images/gallery/live-session-teams-grid.jpg",
+    alt: "Live online training session video call with learners",
     label: "Live training session",
   },
 
