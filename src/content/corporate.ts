@@ -26,18 +26,22 @@ export const corporateFocusAreas: string[] = [
 export const corporateGallery: CorporateGalleryItem[] = [
   {
     image: images.corporateGreatwhiteBoardroom,
-    caption: "Gen AI training session with a corporate team",
+    caption: "Gen AI training session — Greatwhite Global Pvt. Ltd.",
   },
   {
     image: images.corporateGreatwhiteLobby,
-    caption: "Corporate training group",
+    caption: "Gen AI training group — Greatwhite Global Pvt. Ltd.",
   },
   {
     image: images.corporateAnchorGroup,
-    caption: "Corporate training group",
+    caption: "Corporate training group — Anchor Group",
   },
   {
-    image: images.corporateTeamOffice,
-    caption: "Athenix training team",
+    image: images.corporateSalesMarketingTeam,
+    caption: "Gen AI training — Sales & Marketing team",
+  },
+  {
+    image: images.corporateRadhaKrishnaHr,
+    caption: "AI Mentorship training — Radhakrishna Foodland HR team",
   },
 ];

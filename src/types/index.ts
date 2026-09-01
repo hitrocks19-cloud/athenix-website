@@ -79,7 +79,7 @@ export type Testimonial = {
 
 export type GalleryItem = {
   image: ImageAsset;
-  category: "Stage" | "Corporate" | "Team" | "Workshop";
+  category: "Corporate" | "Workshop";
 };
 
 export type Faq = {

@@ -81,6 +81,16 @@ export const images = {
     alt: "Group photo after corporate training",
     label: "Corporate training — group photo",
   },
+  corporateSalesMarketingTeam: {
+    src: "/images/corporate/sales-marketing-team.jpg",
+    alt: "Gen AI training group photo with a sales and marketing team",
+    label: "Corporate training — Sales & Marketing team",
+  },
+  corporateRadhaKrishnaHr: {
+    src: "/images/corporate/radhakrishna-hr-team.jpg",
+    alt: "AI mentorship training group photo with the Radhakrishna Foodland HR team",
+    label: "Corporate training — Radhakrishna Foodland HR team",
+  },
   liveSessionCall: {
     src: "/images/gallery/live-session-call.jpg",
     alt: "Live online training session with participants",
