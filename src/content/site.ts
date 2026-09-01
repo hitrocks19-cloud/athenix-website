@@ -7,6 +7,14 @@ export const siteStats = {
   ratingLabel: "Rating",
 };
 
+// From live in-session learner polls (see the poll-result testimonials) —
+// the share of respondents rating a session "Excellent" has consistently
+// landed at 85%+ across sessions.
+export const testimonialStat = {
+  value: "85%+",
+  label: "Average rating across every training session",
+};
+
 export const sitePhilosophy = "Create an impact by training, not just provide training.";
 
 export const heroCopy = {
