@@ -35,6 +35,11 @@ export const images = {
     alt: "Hitesh Purohit presenting at Ira Skills Hall of Fame",
     label: "Trainer on stage — presenting",
   },
+  trainerStage3: {
+    src: "/images/trainer/hitesh-stage-3.jpg",
+    alt: "Hitesh Purohit speaking on stage at Ira Skills — Rebuild Your Life, The F1 Racer Edition",
+    label: "Trainer on stage — Rebuild Your Life",
+  },
 
   // Posters below are extracted first frames of their matching cinematic
   // video, not a generic photo — this keeps the poster-to-video swap

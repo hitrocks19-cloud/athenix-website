@@ -21,11 +21,14 @@ export default function TrainerProfile() {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <Reveal>
             <div className="grid grid-cols-2 gap-4">
-              <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+              <div className="relative row-span-2 overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
                 <SmartImage asset={leadTrainer.photo} fill className="object-cover" sizes="300px" />
               </div>
               <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
                 <SmartImage asset={images.trainerStage2} fill className="object-cover" sizes="300px" />
+              </div>
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-white/10 transition-transform duration-500 hover:scale-[1.02]">
+                <SmartImage asset={images.trainerStage3} fill className="object-cover" sizes="300px" />
               </div>
             </div>
           </Reveal>
