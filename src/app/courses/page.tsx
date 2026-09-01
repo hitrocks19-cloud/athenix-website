@@ -4,6 +4,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import CinematicVideo from "@/components/home/CinematicVideo";
 import CourseGrid from "@/components/courses/CourseGrid";
 import WebinarsSection from "@/components/webinar/WebinarsSection";
+import ClipReveal from "@/components/ui/ClipReveal";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -24,7 +25,9 @@ export default function CoursesPage() {
         </Container>
       </section>
       <Container className="pb-4">
-        <CinematicVideo videoKey="learning" />
+        <ClipReveal shape="circle">
+          <CinematicVideo videoKey="learning" />
+        </ClipReveal>
       </Container>
       <CourseGrid />
       <WebinarsSection />

@@ -6,6 +6,7 @@ import CorporateTraining from "@/components/corporate/CorporateTraining";
 import CorporateLogoStrip from "@/components/corporate/CorporateLogoStrip";
 import CorporateExperience from "@/components/corporate/CorporateExperience";
 import CorporateForm from "@/components/corporate/CorporateForm";
+import ClipReveal from "@/components/ui/ClipReveal";
 
 export const metadata: Metadata = {
   title: "Corporate Training",
@@ -18,7 +19,9 @@ export default function CorporateTrainingPage() {
     <>
       <CorporateTraining />
       <Container className="pb-16">
-        <CinematicVideo videoKey="corporateTraining" />
+        <ClipReveal shape="circle">
+          <CinematicVideo videoKey="corporateTraining" />
+        </ClipReveal>
       </Container>
       <CorporateLogoStrip />
       <CorporateExperience />

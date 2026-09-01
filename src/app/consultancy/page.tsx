@@ -8,6 +8,7 @@ import ConsultancyProcess from "@/components/consultancy/ConsultancyProcess";
 import ConsultancyForm from "@/components/consultancy/ConsultancyForm";
 import Reveal from "@/components/ui/Reveal";
 import PinnedRevealSection from "@/components/ui/PinnedRevealSection";
+import ClipReveal from "@/components/ui/ClipReveal";
 import { consultancyServices, consultancyUseCases } from "@/content/services";
 import { consultancyHeroCopy } from "@/content/site";
 
@@ -43,7 +44,9 @@ export default function ConsultancyPage() {
       </section>
 
       <Container className="-mt-6 sm:-mt-10">
-        <CinematicVideo videoKey="consultancy" allowUnmute />
+        <ClipReveal shape="circle">
+          <CinematicVideo videoKey="consultancy" allowUnmute />
+        </ClipReveal>
       </Container>
 
       <PinnedRevealSection

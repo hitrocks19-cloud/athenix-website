@@ -7,7 +7,7 @@ import SmartImage from "@/components/ui/SmartImage";
 import { trainingGallery, galleryCategories } from "@/content/gallery";
 import { ImageAsset } from "@/types";
 import Lightbox from "./Lightbox";
-import Reveal from "@/components/ui/Reveal";
+import ClipReveal from "@/components/ui/ClipReveal";
 
 export default function TrainingGallery() {
   const [active, setActive] = useState<(typeof galleryCategories)[number]>("All");
@@ -38,7 +38,7 @@ export default function TrainingGallery() {
 
         <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {filtered.map((item, i) => (
-            <Reveal key={i} delay={(i % 8) * 60}>
+            <ClipReveal key={i} shape={i % 2 === 0 ? "wipe-right" : "wipe-left"} delay={(i % 8) * 70}>
               <button
                 onClick={() => setLightboxAsset(item.image)}
                 className="group relative aspect-square w-full overflow-hidden rounded-xl border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:border-white/25 hover:shadow-glow"
@@ -50,7 +50,7 @@ export default function TrainingGallery() {
                   className="object-cover transition duration-500 group-hover:scale-105"
                 />
               </button>
-            </Reveal>
+            </ClipReveal>
           ))}
         </div>
       </Container>

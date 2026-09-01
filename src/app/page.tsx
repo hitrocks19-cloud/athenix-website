@@ -15,13 +15,16 @@ import WebinarsSection from "@/components/webinar/WebinarsSection";
 import ConsultancyTeaser from "@/components/home/ConsultancyTeaser";
 import FinalCTA from "@/components/home/FinalCTA";
 import ManifestoSection from "@/components/home/ManifestoSection";
+import ClipReveal from "@/components/ui/ClipReveal";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Container className="-mt-8 sm:-mt-12">
-        <CinematicVideo videoKey="hero" />
+        <ClipReveal shape="circle">
+          <CinematicVideo videoKey="hero" />
+        </ClipReveal>
       </Container>
       <TrustStats />
       <ManifestoSection />

@@ -2,6 +2,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import SmartImage from "@/components/ui/SmartImage";
 import Reveal from "@/components/ui/Reveal";
+import ClipReveal from "@/components/ui/ClipReveal";
 import { corporateGallery } from "@/content/corporate";
 
 export default function CorporateExperience() {
@@ -13,7 +14,7 @@ export default function CorporateExperience() {
         </Reveal>
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {corporateGallery.map((item, i) => (
-            <Reveal key={i} delay={i * 80}>
+            <ClipReveal key={i} shape="circle" delay={i * 90}>
               <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-glow">
                 <SmartImage
                   asset={item.image}
@@ -25,7 +26,7 @@ export default function CorporateExperience() {
                   <p className="text-sm text-white">{item.caption}</p>
                 </div>
               </div>
-            </Reveal>
+            </ClipReveal>
           ))}
         </div>
       </Container>
