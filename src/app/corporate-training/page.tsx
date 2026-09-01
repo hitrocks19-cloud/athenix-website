@@ -20,7 +20,7 @@ export default function CorporateTrainingPage() {
       <CorporateTraining />
       <Container className="pb-16">
         <ClipReveal shape="circle">
-          <CinematicVideo videoKey="corporateTraining" />
+          <CinematicVideo videoKey="corporateTraining" allowUnmute />
         </ClipReveal>
       </Container>
       <CorporateLogoStrip />
