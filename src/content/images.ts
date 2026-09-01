@@ -71,6 +71,11 @@ export const images = {
     alt: "Corporate training session in a boardroom",
     label: "Corporate training — boardroom",
   },
+  corporateTrainingVideoPoster: {
+    src: "/images/corporate/corporate-training-poster.jpg",
+    alt: "Corporate trainer presenting Power BI dashboards in a modern training room",
+    label: "Corporate training video poster frame",
+  },
   corporateGreatwhiteLobby: {
     src: "/images/corporate/greatwhite-lobby-group.jpg",
     alt: "Group photo after a corporate training session",

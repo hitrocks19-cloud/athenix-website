@@ -27,8 +27,8 @@ export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
     description: "AI, data and automation systems built for how your business runs.",
   },
   corporateTraining: {
-    poster: images.corporateGreatwhiteLobby,
-    mp4: "",
+    poster: images.corporateTrainingVideoPoster,
+    mp4: "/videos/corporate-training.mp4",
     title: "Corporate AI & Data Training",
     description: "Hands-on AI and data training delivered inside real teams.",
   },
