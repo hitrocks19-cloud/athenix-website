@@ -9,19 +9,19 @@ import { images } from "./images";
  */
 export const cinematicVideos: Record<CinematicVideoKey, CinematicVideoAsset> = {
   hero: {
-    poster: images.trainerStage1,
+    poster: images.heroVideoPoster,
     mp4: "/videos/hero.mp4",
     title: "Athenix — Build Skills. Apply AI. Create Impact.",
     description: "Human expertise, AI and data, brought together in practical learning.",
   },
   learning: {
-    poster: images.trainerStage1,
+    poster: images.learningVideoPoster,
     mp4: "/videos/learning.mp4",
     title: "Athenix Learning",
     description: "Practical AI and data learning built for real professional impact.",
   },
   consultancy: {
-    poster: images.trainerPortrait,
+    poster: images.consultancyVideoPoster,
     mp4: "/videos/consultancy.mp4",
     title: "Athenix Consultancy",
     description: "AI, data and automation systems built for how your business runs.",

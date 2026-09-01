@@ -36,6 +36,26 @@ export const images = {
     label: "Trainer on stage — presenting",
   },
 
+  // Posters below are extracted first frames of their matching cinematic
+  // video, not a generic photo — this keeps the poster-to-video swap
+  // seamless (no visible "jump" to a different scene) once the video
+  // loads and crossfades in.
+  heroVideoPoster: {
+    src: "/images/trainer/hero-poster.jpg",
+    alt: "Hitesh Purohit, Athenix founder and lead trainer",
+    label: "Hero video poster frame",
+  },
+  learningVideoPoster: {
+    src: "/images/trainer/learning-poster.jpg",
+    alt: "Hitesh Purohit, Athenix founder and lead trainer",
+    label: "Learning video poster frame",
+  },
+  consultancyVideoPoster: {
+    src: "/images/trainer/consultancy-poster.jpg",
+    alt: "Hitesh Purohit, Athenix founder and lead trainer",
+    label: "Consultancy video poster frame",
+  },
+
   corporateTeamOffice: {
     src: "/images/corporate/team-office-1.jpg",
     alt: "Athenix training team in a corporate office",
