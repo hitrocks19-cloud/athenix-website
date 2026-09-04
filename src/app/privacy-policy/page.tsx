@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
+import LegalContent from "@/components/ui/LegalContent";
+import { privacyPolicySections } from "@/content/legal";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "How Athenix Learning collects, uses, and protects your personal information.",
+};
 
 export default function PrivacyPolicyPage() {
   return (
     <Container className="py-20 sm:py-28">
       <h1 className="font-display text-3xl font-semibold text-white">Privacy Policy</h1>
-      <p className="mt-6 max-w-2xl text-white/60">
-        This page is a placeholder. Replace it with Athenix&apos;s actual privacy policy — covering what data is
-        collected through webinar, corporate training and consultancy forms, how it is used and stored, and how
-        users can request its removal — before launch.
-      </p>
+      <div className="mt-6">
+        <LegalContent sections={privacyPolicySections} />
+      </div>
     </Container>
   );
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { primaryNav, consultancyNav } from "@/content/nav";
 import { images } from "@/content/images";
+import { companyInfo } from "@/content/company";
 import SmartImage from "@/components/ui/SmartImage";
 
 export default function Footer() {
@@ -16,6 +17,21 @@ export default function Footer() {
             <p className="text-sm text-white/50">
               Learn AI. Master Data. Build Your Future. Automate Work. Unlock Efficiency. Build Smarter.
             </p>
+            <ul className="mt-4 space-y-1.5 text-sm text-white/50">
+              <li>
+                <a href={`mailto:${companyInfo.email}`} className="hover:text-white">
+                  {companyInfo.email}
+                </a>
+              </li>
+              <li>
+                <a href={`tel:${companyInfo.phoneHref}`} className="hover:text-white">
+                  {companyInfo.phone}
+                </a>
+              </li>
+              <li className="text-white/40">
+                {companyInfo.address.line1} {companyInfo.address.line2} {companyInfo.address.line3}
+              </li>
+            </ul>
           </div>
 
           <div>
@@ -57,7 +73,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/terms" className="hover:text-white">
-                  Terms
+                  Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund-policy" className="hover:text-white">
+                  Refund Policy
                 </Link>
               </li>
               <li>

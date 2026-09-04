@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { faqs } from "@/content/faqs";
+import { companyInfo } from "@/content/company";
 import BookWebinarButton from "@/components/webinar/BookWebinarButton";
 
 export const metadata: Metadata = {
@@ -48,12 +49,26 @@ export default function ContactPage() {
             />
           </div>
 
-          <p className="mt-12 text-center text-sm text-white/50">
-            Or write to us at{" "}
-            <a href="mailto:support@athenixlearning.com" className="text-flare-400 hover:text-flare-300">
-              support@athenixlearning.com
-            </a>
-          </p>
+          <div className="mx-auto mt-12 max-w-md text-center text-sm text-white/50">
+            <p>
+              Or write to us at{" "}
+              <a href={`mailto:${companyInfo.email}`} className="text-flare-400 hover:text-flare-300">
+                {companyInfo.email}
+              </a>{" "}
+              or call{" "}
+              <a href={`tel:${companyInfo.phoneHref}`} className="text-flare-400 hover:text-flare-300">
+                {companyInfo.phone}
+              </a>
+              .
+            </p>
+            <p className="mt-3 text-white/40">
+              {companyInfo.address.line1}
+              <br />
+              {companyInfo.address.line2}
+              <br />
+              {companyInfo.address.line3}
+            </p>
+          </div>
         </Container>
       </section>
 
