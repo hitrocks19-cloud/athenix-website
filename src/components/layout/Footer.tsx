@@ -90,18 +90,29 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} Athenix. All rights reserved.</p>
           <p>Athenix Learning · Athenix Consultancy</p>
-          <a
-            href="https://elevenlabs.io/startup-grants"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 opacity-70 transition hover:opacity-100"
-          >
-            <span className="whitespace-nowrap text-white/40">Backed by</span>
-            <SmartImage asset={images.elevenlabsGrantsBadge} width={140} height={12} className="h-auto w-[140px]" />
-          </a>
+          <div className="flex items-center gap-4">
+            <a
+              href="https://elevenlabs.io/startup-grants"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 opacity-70 transition hover:opacity-100"
+            >
+              <span className="whitespace-nowrap text-white/40">Backed by</span>
+              <SmartImage asset={images.elevenlabsGrantsBadge} width={140} height={12} className="h-auto w-[140px]" />
+            </a>
+            <a
+              href="https://udyamregistration.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Registered under Ministry of MSME, Government of India"
+              className="rounded-md bg-white p-1.5 opacity-90 transition hover:opacity-100"
+            >
+              <SmartImage asset={images.msmeBadge} width={64} height={35} className="h-[26px] w-[47px]" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
