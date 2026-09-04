@@ -27,6 +27,23 @@ export default function AboutPage() {
             <Stat value={siteStats.corporates} label={siteStats.corporatesLabel} />
             <Stat value={siteStats.rating} label={siteStats.ratingLabel} />
           </div>
+
+          <div className="mt-10 flex justify-center">
+            <a
+              href="https://elevenlabs.io/startup-grants"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 transition hover:border-white/25 hover:bg-white/10"
+            >
+              <span className="whitespace-nowrap text-xs uppercase tracking-wide text-white/50">Backed by</span>
+              <SmartImage
+                asset={images.elevenlabsGrantsBadge}
+                width={170}
+                height={15}
+                className="h-auto w-[170px]"
+              />
+            </a>
+          </div>
         </Container>
       </section>
 

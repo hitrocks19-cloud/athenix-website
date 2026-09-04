@@ -19,6 +19,11 @@ export const images = {
     alt: "Athenix logo mark",
     label: "Athenix logo mark",
   },
+  elevenlabsGrantsBadge: {
+    src: "/images/badges/elevenlabs-grants-dark.webp",
+    alt: "ElevenLabs Grants recipient",
+    label: "ElevenLabs Grants badge",
+  },
 
   trainerPortrait: {
     src: "/images/trainer/hitesh-portrait.jpg",
