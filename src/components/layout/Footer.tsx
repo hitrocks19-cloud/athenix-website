@@ -32,6 +32,31 @@ export default function Footer() {
                 {companyInfo.address.line1} {companyInfo.address.line2} {companyInfo.address.line3}
               </li>
             </ul>
+
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href={companyInfo.social.linkedinCompany}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Athenix Learning on LinkedIn"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white/60 transition hover:border-white/30 hover:text-white"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.15 1.45-2.15 2.94v5.66H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z" />
+                </svg>
+              </a>
+              <a
+                href={companyInfo.social.trustpilot}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Athenix Learning reviews on Trustpilot"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 text-white/60 transition hover:border-white/30 hover:text-white"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l2.6 7.36H22l-6 4.5 2.3 7.14L12 16.5l-6.3 4.5L8 13.86 2 9.36h7.4L12 2Z" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           <div>

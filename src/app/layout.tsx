@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { WebinarModalProvider } from "@/components/webinar/WebinarModalContext";
 import WebinarModal from "@/components/webinar/WebinarModal";
 import FloatingWebinarCTA from "@/components/webinar/FloatingWebinarCTA";
+import { companyInfo } from "@/content/company";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
@@ -57,7 +58,7 @@ const organizationJsonLd = {
   url: siteUrl,
   description:
     "Athenix Learning trains individuals and professionals in Data Analytics, Data Science and AI. Athenix Consultancy builds AI and automation solutions for businesses.",
-  sameAs: [],
+  sameAs: [companyInfo.social.linkedinCompany, companyInfo.social.trustpilot],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
