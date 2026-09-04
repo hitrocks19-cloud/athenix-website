@@ -43,18 +43,10 @@ export default function AboutPage() {
                 className="h-auto w-[170px]"
               />
             </a>
-            <a
-              href="https://udyamregistration.gov.in"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Registered under Ministry of MSME, Government of India"
-              className="flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2 transition hover:border-white/25 hover:bg-white/10"
-            >
+            <div className="flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2.5">
               <span className="whitespace-nowrap text-xs uppercase tracking-wide text-white/50">Registered under</span>
-              <div className="rounded bg-white p-1">
-                <SmartImage asset={images.msmeBadge} width={64} height={35} className="h-[26px] w-[47px]" />
-              </div>
-            </a>
+              <SmartImage asset={images.msmeBadge} width={64} height={35} className="h-[26px] w-[47px]" />
+            </div>
           </div>
         </Container>
       </section>
