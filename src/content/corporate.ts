@@ -5,6 +5,7 @@ export const corporateClients: CorporateClient[] = [
   { name: "Anchor Group" },
   { name: "Radhakrishna Foodland" },
   { name: "Greatwhite Global Pvt. Ltd." },
+  { name: "HOS Global Foods (USA)" },
   { name: "Canara Bank" },
   { name: "GNIMS" },
   { name: "SBI" },
