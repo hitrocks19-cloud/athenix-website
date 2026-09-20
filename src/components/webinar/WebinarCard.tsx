@@ -32,7 +32,7 @@ export default function WebinarCard({ webinar }: { webinar: Webinar }) {
             trackEvent("webinar_cta_click", { source: "card", webinar: webinar.slug });
             open(webinar.slug);
           }}
-          className="mt-6 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
         >
           {webinar.ctaLabel}
         </button>

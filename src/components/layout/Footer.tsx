@@ -115,10 +115,10 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 border-t border-white/10 pt-6 text-xs text-white/40 lg:justify-between">
           <p>© {new Date().getFullYear()} Athenix. All rights reserved.</p>
           <p>Athenix Learning · Athenix Consultancy</p>
-          <div className="flex items-center gap-4">
+          <div className="flex shrink-0 items-center gap-4">
             <a
               href="https://elevenlabs.io/startup-grants"
               target="_blank"
@@ -126,13 +126,19 @@ export default function Footer() {
               className="flex items-center gap-2 opacity-70 transition hover:opacity-100"
             >
               <span className="whitespace-nowrap text-white/40">Backed by</span>
-              <SmartImage asset={images.elevenlabsGrantsBadge} width={140} height={12} className="h-auto w-[140px]" />
+              <SmartImage asset={images.elevenlabsGrantsBadge} width={140} height={12} className="h-auto w-[140px] light:hidden" />
+              <SmartImage
+                asset={images.elevenlabsGrantsBadgeLight}
+                width={140}
+                height={12}
+                className="hidden h-auto w-[140px] light:block"
+              />
             </a>
             <SmartImage
               asset={images.msmeBadge}
               width={64}
               height={35}
-              className="h-[26px] w-[47px] opacity-90"
+              className="h-[26px] w-[47px] opacity-90 light:invert"
             />
           </div>
         </div>

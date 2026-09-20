@@ -59,7 +59,7 @@ export default function CorporateExperience() {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <p className="absolute bottom-4 left-4 right-4 text-left text-sm font-medium text-white sm:text-base">
+                <p className="absolute bottom-4 left-4 right-4 text-left text-sm font-medium text-snow sm:text-base">
                   {item.caption}
                 </p>
               </button>
@@ -71,14 +71,14 @@ export default function CorporateExperience() {
               <button
                 aria-label="Previous photo"
                 onClick={prev}
-                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur transition hover:text-white sm:-left-5"
+                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-snow/15 bg-black/50 text-lg text-snow/80 backdrop-blur transition hover:text-snow sm:-left-5"
               >
                 ‹
               </button>
               <button
                 aria-label="Next photo"
                 onClick={next}
-                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur transition hover:text-white sm:-right-5"
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-snow/15 bg-black/50 text-lg text-snow/80 backdrop-blur transition hover:text-snow sm:-right-5"
               >
                 ›
               </button>

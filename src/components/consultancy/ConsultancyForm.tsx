@@ -117,7 +117,7 @@ export default function ConsultancyForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-2 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-magenta-500 to-amber-500 px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110 disabled:opacity-60 sm:col-span-2"
+        className="mt-2 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-magenta-500 to-amber-500 px-6 py-3 text-sm font-semibold text-snow shadow-glow transition hover:brightness-110 disabled:opacity-60 sm:col-span-2"
       >
         {status === "submitting" ? "Sending…" : "Get My Free Consultation"}
       </button>

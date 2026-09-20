@@ -47,7 +47,7 @@ export default function TestimonialGallery() {
               sizes="(max-width: 640px) 100vw, 50vw"
               className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
-            <div className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/80 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
+            <div className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-snow/80 opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
               Click to read full size
             </div>
           </button>

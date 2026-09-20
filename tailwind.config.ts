@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
 
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
@@ -6,31 +7,38 @@ const config: Config = {
     extend: {
       colors: {
         ink: {
-          950: "#05060a",
-          900: "#0a0c12",
-          800: "#10131c",
-          700: "#171b28",
-          600: "#232838",
+          950: "rgb(var(--ink-950) / <alpha-value>)",
+          900: "rgb(var(--ink-900) / <alpha-value>)",
+          800: "rgb(var(--ink-800) / <alpha-value>)",
+          700: "rgb(var(--ink-700) / <alpha-value>)",
+          600: "rgb(var(--ink-600) / <alpha-value>)",
         },
+        // Theme-aware foreground. Every existing text-white / bg-white/5 /
+        // border-white/10 utility resolves through --c-fg, so the whole site
+        // flips between themes without touching each component.
+        white: "rgb(var(--c-fg) / <alpha-value>)",
+        // Literal white for text/controls that always sit on a dark scrim
+        // (video captions, lightbox chrome, gradient buttons).
+        snow: "#ffffff",
         offwhite: "#f3f4f7",
         // Primary interactive family — deep indigo. Replaces the old
         // "electric" blue; still reads as tech/AI but leans richer/darker.
         flare: {
-          400: "#8677ff",
+          400: "rgb(var(--flare-400) / <alpha-value>)",
           500: "#6247ff",
           600: "#4b2fe0",
         },
         // Secondary accent — hot magenta/fuchsia. Deliberately not the
         // typical AI-brand violet; carries more energy.
         magenta: {
-          400: "#f45fd6",
+          400: "rgb(var(--magenta-400) / <alpha-value>)",
           500: "#e024c0",
           600: "#b915a0",
         },
         // Tertiary highlight — warm amber/gold. Ties back to the real
         // "Hall of Fame" event gold branding already used by Athenix.
         amber: {
-          400: "#ffcc66",
+          400: "rgb(var(--amber-400) / <alpha-value>)",
           500: "#ffb020",
           600: "#e08e00",
         },
@@ -46,7 +54,7 @@ const config: Config = {
       },
       backgroundImage: {
         "athenix-glow":
-          "radial-gradient(60% 60% at 50% 0%, rgba(224,36,192,0.22) 0%, rgba(98,71,255,0.16) 40%, rgba(5,6,10,0) 70%)",
+          "radial-gradient(60% 60% at 50% 0%, rgba(224,36,192,var(--glow-a)) 0%, rgba(98,71,255,var(--glow-b)) 40%, rgb(var(--ink-950) / 0) 70%)",
         "athenix-line":
           "linear-gradient(90deg, #4b2fe0 0%, #e024c0 55%, #ffb020 100%)",
         "athenix-line-animated":
@@ -56,7 +64,7 @@ const config: Config = {
       boxShadow: {
         glow: "0 0 40px rgba(224,36,192,0.28)",
         glowAmber: "0 0 40px rgba(255,176,32,0.25)",
-        card: "0 8px 30px rgba(0,0,0,0.35)",
+        card: "0 8px 30px rgba(0,0,0,var(--shadow-card-a))",
       },
       animation: {
         pulseSlow: "pulseSlow 3s ease-in-out infinite",
@@ -103,7 +111,11 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(({ addVariant }) => {
+      addVariant("light", ":root[data-theme=\"light\"] &");
+    }),
+  ],
 };
 
 export default config;

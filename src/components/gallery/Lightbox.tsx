@@ -37,7 +37,7 @@ export default function Lightbox({ asset, onClose, onPrev, onNext }: Props) {
       <button
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-5 top-5 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+        className="absolute right-5 top-5 rounded-full bg-snow/10 p-2 text-snow hover:bg-snow/20"
       >
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -51,7 +51,7 @@ export default function Lightbox({ asset, onClose, onPrev, onNext }: Props) {
             e.stopPropagation();
             onPrev();
           }}
-          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:left-6"
+          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-snow/10 text-xl text-snow backdrop-blur transition hover:bg-snow/20 sm:left-6"
         >
           ‹
         </button>
@@ -64,7 +64,7 @@ export default function Lightbox({ asset, onClose, onPrev, onNext }: Props) {
             e.stopPropagation();
             onNext();
           }}
-          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:right-6"
+          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-snow/10 text-xl text-snow backdrop-blur transition hover:bg-snow/20 sm:right-6"
         >
           ›
         </button>

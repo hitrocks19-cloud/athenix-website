@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { primaryNav, consultancyNav, bookWebinarLabel } from "@/content/nav";
 import { images } from "@/content/images";
 import SmartImage from "@/components/ui/SmartImage";
+import ThemeToggle from "@/components/layout/ThemeToggle";
 import { useWebinarModal } from "@/components/webinar/WebinarModalContext";
 import { trackEvent } from "@/lib/analytics";
 
@@ -50,29 +51,33 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <ThemeToggle />
           <button
             onClick={handleBookWebinar}
-            className="inline-flex items-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
+            className="inline-flex items-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-2.5 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
           >
             {bookWebinarLabel}
           </button>
         </div>
 
-        <button
-          className="flex items-center justify-center rounded-md p-2 text-white lg:hidden"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            {mobileOpen ? (
-              <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            ) : (
-              <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
+          <button
+            className="flex items-center justify-center rounded-md p-2 text-white"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              {mobileOpen ? (
+                <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              ) : (
+                <path d="M4 7H20M4 12H20M4 17H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {mobileOpen ? (
@@ -91,7 +96,7 @@ export default function Navbar() {
           </nav>
           <button
             onClick={handleBookWebinar}
-            className="mt-4 w-full rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-white shadow-glow"
+            className="mt-4 w-full rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-snow shadow-glow"
           >
             {bookWebinarLabel}
           </button>

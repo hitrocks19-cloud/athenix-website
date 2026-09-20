@@ -27,7 +27,7 @@ export default function ContactPage() {
             <ContactPath
               title="Learning"
               description="Explore courses or book a live webinar."
-              action={<BookWebinarButton source="contact" className="mt-4 inline-flex items-center justify-center rounded-full bg-athenix-line px-5 py-2.5 text-sm font-semibold text-white shadow-glow" />}
+              action={<BookWebinarButton source="contact" className="mt-4 inline-flex items-center justify-center rounded-full bg-athenix-line px-5 py-2.5 text-sm font-semibold text-snow shadow-glow" />}
             />
             <ContactPath
               title="Corporate Training"

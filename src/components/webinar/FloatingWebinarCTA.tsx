@@ -24,11 +24,11 @@ export default function FloatingWebinarCTA() {
         trackEvent("webinar_cta_click", { source: "floating" });
         open();
       }}
-      className="fixed bottom-6 right-5 z-30 flex items-center gap-2 rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110 sm:right-8"
+      className="fixed bottom-6 right-5 z-30 flex items-center gap-2 rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-3 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110 sm:right-8"
     >
       <span className="relative flex h-2 w-2">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70" />
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-snow/70" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-snow" />
       </span>
       {hasBeenOpened ? "Book Your Webinar" : "Book a Webinar"}
     </button>

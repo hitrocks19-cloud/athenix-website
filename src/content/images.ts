@@ -24,6 +24,11 @@ export const images = {
     alt: "ElevenLabs Grants recipient",
     label: "ElevenLabs Grants badge",
   },
+  elevenlabsGrantsBadgeLight: {
+    src: "/images/badges/elevenlabs-grants-light.webp",
+    alt: "ElevenLabs Grants recipient",
+    label: "ElevenLabs Grants badge",
+  },
   msmeBadge: {
     src: "/images/badges/msme-registered.png",
     alt: "Registered under Ministry of MSME, Government of India",

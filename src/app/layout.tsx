@@ -61,9 +61,15 @@ const organizationJsonLd = {
   sameAs: [companyInfo.social.linkedinCompany, companyInfo.social.trustpilot],
 };
 
+// Runs before first paint so a returning visitor never sees a flash of the wrong theme.
+const themeInitScript = `(function(){try{var t=localStorage.getItem("athenix-theme");document.documentElement.dataset.theme=t==="light"?"light":"dark";}catch(e){document.documentElement.dataset.theme="dark";}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-screen font-sans antialiased">
         <script
           type="application/ld+json"

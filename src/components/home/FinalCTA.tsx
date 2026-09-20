@@ -22,7 +22,7 @@ export default function FinalCTA() {
                   trackEvent("webinar_cta_click", { source: "final_cta" });
                   open();
                 }}
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
+                className="mt-6 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-6 py-3 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
               >
                 {finalCta.individuals.cta.label}
               </button>

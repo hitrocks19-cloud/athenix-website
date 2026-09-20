@@ -44,7 +44,7 @@ export default function TestimonialLightbox({ asset, onClose, onPrev, onNext }: 
       <button
         aria-label="Close"
         onClick={onClose}
-        className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20"
+        className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-snow/10 text-xl text-snow backdrop-blur transition hover:bg-snow/20"
       >
         ✕
       </button>
@@ -56,7 +56,7 @@ export default function TestimonialLightbox({ asset, onClose, onPrev, onNext }: 
             e.stopPropagation();
             onPrev();
           }}
-          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:left-6"
+          className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-snow/10 text-xl text-snow backdrop-blur transition hover:bg-snow/20 sm:left-6"
         >
           ‹
         </button>
@@ -69,14 +69,14 @@ export default function TestimonialLightbox({ asset, onClose, onPrev, onNext }: 
             e.stopPropagation();
             onNext();
           }}
-          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20 sm:right-6"
+          className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-snow/10 text-xl text-snow backdrop-blur transition hover:bg-snow/20 sm:right-6"
         >
           ›
         </button>
       ) : null}
 
       <div
-        className="relative max-h-[88vh] max-w-6xl overflow-hidden rounded-2xl border border-white/10"
+        className="relative max-h-[88vh] max-w-6xl overflow-hidden rounded-2xl border border-snow/10"
         onClick={(e) => e.stopPropagation()}
       >
         <SmartImage

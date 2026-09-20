@@ -65,7 +65,7 @@ export default function TestimonialCarousel() {
               </button>
             ))}
 
-            <div className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur">
+            <div className="pointer-events-none absolute bottom-3 right-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-snow/80 backdrop-blur">
               Click to read full size
             </div>
           </div>
@@ -75,14 +75,14 @@ export default function TestimonialCarousel() {
               <button
                 aria-label="Previous testimonial"
                 onClick={prev}
-                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur transition hover:text-white sm:-left-5"
+                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-snow/15 bg-black/50 text-lg text-snow/80 backdrop-blur transition hover:text-snow sm:-left-5"
               >
                 ‹
               </button>
               <button
                 aria-label="Next testimonial"
                 onClick={next}
-                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur transition hover:text-white sm:-right-5"
+                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-snow/15 bg-black/50 text-lg text-snow/80 backdrop-blur transition hover:text-snow sm:-right-5"
               >
                 ›
               </button>

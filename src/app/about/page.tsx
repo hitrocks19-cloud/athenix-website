@@ -40,12 +40,18 @@ export default function AboutPage() {
                 asset={images.elevenlabsGrantsBadge}
                 width={170}
                 height={15}
-                className="h-auto w-[170px]"
+                className="h-auto w-[170px] light:hidden"
+              />
+              <SmartImage
+                asset={images.elevenlabsGrantsBadgeLight}
+                width={170}
+                height={15}
+                className="hidden h-auto w-[170px] light:block"
               />
             </a>
             <div className="flex items-center gap-3 rounded-full border border-white/15 bg-white/5 px-5 py-2.5">
               <span className="whitespace-nowrap text-xs uppercase tracking-wide text-white/50">Registered under</span>
-              <SmartImage asset={images.msmeBadge} width={64} height={35} className="h-[26px] w-[47px]" />
+              <SmartImage asset={images.msmeBadge} width={64} height={35} className="h-[26px] w-[47px] light:invert" />
             </div>
           </div>
         </Container>

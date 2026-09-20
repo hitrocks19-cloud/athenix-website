@@ -97,7 +97,7 @@ export default function CinematicVideo({ videoKey, className = "", allowUnmute =
           <button
             onClick={() => setMuted((m) => !m)}
             aria-label={muted ? "Unmute video" : "Mute video"}
-            className="absolute right-4 top-4 z-10 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur transition hover:bg-black/80"
+            className="absolute right-4 top-4 z-10 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-snow backdrop-blur transition hover:bg-black/80"
           >
             {muted ? (
               <>
@@ -125,12 +125,12 @@ export default function CinematicVideo({ videoKey, className = "", allowUnmute =
         ) : null}
 
         <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
-          <p className="font-display text-lg font-semibold text-white sm:text-2xl">{asset.title}</p>
-          <p className="mt-1 max-w-xl text-sm text-white/70 sm:text-base">{asset.description}</p>
+          <p className="font-display text-lg font-semibold text-snow sm:text-2xl">{asset.title}</p>
+          <p className="mt-1 max-w-xl text-sm text-snow/70 sm:text-base">{asset.description}</p>
         </div>
 
         {!asset.mp4 ? (
-          <span className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white/70 backdrop-blur">
+          <span className="absolute right-4 top-4 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-snow/70 backdrop-blur">
             Cinematic video coming soon
           </span>
         ) : null}
