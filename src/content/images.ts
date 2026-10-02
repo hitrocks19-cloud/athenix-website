@@ -111,6 +111,21 @@ export const images = {
     alt: "AI mentorship training group photo with the Radhakrishna Foodland HR team",
     label: "Corporate training — Radhakrishna Foodland HR team",
   },
+  corporateHosGlobalFoods1: {
+    src: "/images/corporate/hos-global-foods-1.jpg",
+    alt: "Live online AI training session with the HOS Global Foods (USA) team",
+    label: "Corporate training — HOS Global Foods (USA)",
+  },
+  corporateHosGlobalFoods2: {
+    src: "/images/corporate/hos-global-foods-2.jpg",
+    alt: "Live online AI training session with the HOS Global Foods (USA) team",
+    label: "Corporate training — HOS Global Foods (USA)",
+  },
+  corporateHosGlobalFoods3: {
+    src: "/images/corporate/hos-global-foods-3.jpg",
+    alt: "Live online AI training session with the HOS Global Foods (USA) team",
+    label: "Corporate training — HOS Global Foods (USA)",
+  },
   liveSessionCall: {
     src: "/images/gallery/live-session-call.jpg",
     alt: "Advanced Excel live training session with 100+ corporate professionals",

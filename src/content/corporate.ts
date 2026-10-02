@@ -45,4 +45,16 @@ export const corporateGallery: CorporateGalleryItem[] = [
     image: images.corporateRadhaKrishnaHr,
     caption: "AI Mentorship training — Radhakrishna Foodland HR team",
   },
+  {
+    image: images.corporateHosGlobalFoods1,
+    caption: "Live AI training — HOS Global Foods (USA) team",
+  },
+  {
+    image: images.corporateHosGlobalFoods2,
+    caption: "Live AI training — HOS Global Foods (USA) team",
+  },
+  {
+    image: images.corporateHosGlobalFoods3,
+    caption: "Live AI training — HOS Global Foods (USA) team",
+  },
 ];
