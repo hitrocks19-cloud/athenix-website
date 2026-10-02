@@ -76,3 +76,17 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Native <select> popups are drawn by the browser: the list ignores the
+   field's translucent background, so inherited white text ended up white on
+   white. Give every option an explicit, theme-aware surface and text color. */
+select {
+  color-scheme: inherit;
+}
+select option {
+  background-color: rgb(var(--ink-800));
+  color: rgb(var(--c-fg));
+}
+select option:disabled {
+  color: rgb(var(--c-fg) / 0.5);
+}
