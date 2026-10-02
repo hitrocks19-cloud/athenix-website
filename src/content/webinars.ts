@@ -6,6 +6,7 @@ export const webinars: Webinar[] = [
     title: "Mastery in Excel + AI",
     price: "199",
     priceLabel: "₹199",
+    originalPriceLabel: "₹3,999",
     description:
       "A live, hands-on session on mastering Excel with AI, built for real work, not theory. Learn techniques you can use on your own files the same day.",
     bullets: [
@@ -20,6 +21,7 @@ export const webinars: Webinar[] = [
     title: "Mastery in Claude",
     price: "499",
     priceLabel: "₹499",
+    originalPriceLabel: "₹5,999",
     description:
       "A hands-on session on using Claude for real professional tasks, with workflows you can reuse long after the session ends.",
     bullets: [

@@ -14,7 +14,15 @@ export default function WebinarCard({ webinar }: { webinar: Webinar }) {
         <div>
           <div className="mb-4 flex items-baseline justify-between">
             <h3 className="font-display text-xl font-semibold text-white">{webinar.title}</h3>
-            <span className="font-display text-2xl font-bold text-amber-400">{webinar.priceLabel}</span>
+            <span className="flex flex-shrink-0 flex-col items-end leading-tight">
+              <del className="text-sm font-medium text-white/40" aria-label={`Regular price ${webinar.originalPriceLabel}`}>
+                {webinar.originalPriceLabel}
+              </del>
+              <span className="font-display text-2xl font-bold text-amber-400">
+                <span className="sr-only">Offer price </span>
+                {webinar.priceLabel}
+              </span>
+            </span>
           </div>
           <p className="text-sm text-white/60">{webinar.description}</p>
           <ul className="mt-4 space-y-2">

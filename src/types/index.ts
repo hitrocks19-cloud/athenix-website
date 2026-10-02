@@ -60,6 +60,8 @@ export type Webinar = {
   title: string;
   price: string;
   priceLabel: string;
+  /** Regular price shown struck through next to the offer price. */
+  originalPriceLabel: string;
   description: string;
   bullets: string[];
   ctaLabel: string;
