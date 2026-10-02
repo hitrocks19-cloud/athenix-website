@@ -126,6 +126,21 @@ export const images = {
     alt: "Live online AI training session with the HOS Global Foods (USA) team",
     label: "Corporate training — HOS Global Foods (USA)",
   },
+  corporateGreatwhiteLobby2: {
+    src: "/images/corporate/corporate-session-4.jpg",
+    alt: "Group photo after a corporate training session at Greatwhite Global",
+    label: "Corporate training — group photo",
+  },
+  corporateOnsiteTeam: {
+    src: "/images/corporate/corporate-session-5.jpg",
+    alt: "Group photo with a team after an on-site corporate training session",
+    label: "Corporate training — on-site team",
+  },
+  corporateGreatwhiteBoardroom2: {
+    src: "/images/corporate/corporate-session-6.jpg",
+    alt: "Corporate training session in the Greatwhite Global boardroom",
+    label: "Corporate training — boardroom",
+  },
   liveSessionCall: {
     src: "/images/gallery/live-session-call.jpg",
     alt: "Advanced Excel live training session with 100+ corporate professionals",

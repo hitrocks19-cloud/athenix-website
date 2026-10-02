@@ -57,4 +57,16 @@ export const corporateGallery: CorporateGalleryItem[] = [
     image: images.corporateHosGlobalFoods3,
     caption: "Live AI training — HOS Global Foods (USA) team",
   },
+  {
+    image: images.corporateGreatwhiteLobby2,
+    caption: "Corporate training group — Greatwhite Global Pvt. Ltd.",
+  },
+  {
+    image: images.corporateOnsiteTeam,
+    caption: "On-site corporate training team",
+  },
+  {
+    image: images.corporateGreatwhiteBoardroom2,
+    caption: "Gen AI training session — Greatwhite Global Pvt. Ltd.",
+  },
 ];
