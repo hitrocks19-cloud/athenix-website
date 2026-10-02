@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Athenix: Google Sheets + Razorpay setup guide</title>
+<style>
+  :root { --ink:#141826; --muted:#5a6275; --line:#e3e6ee; --bg:#f6f7fb; --card:#fff; --accent:#5b3fe0; --ok:#0f7a4a; --warn:#9a5b00; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+  h1 { font-size: 30px; line-height:1.2; margin: 0 0 8px; }
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-top: 8px; border-top: 2px solid var(--line); }
+  h3 { font-size: 17px; margin: 24px 0 8px; }
+  p { margin: 10px 0; }
+  .lead { color: var(--muted); font-size: 17px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin: 16px 0; }
+  .note { border-left: 4px solid var(--accent); background:#f0edff; padding: 12px 16px; border-radius: 8px; margin: 16px 0; }
+  .warn { border-left-color: #e0a000; background:#fff6e0; }
+  ol, ul { padding-left: 24px; }
+  li { margin: 7px 0; }
+  table { width:100%; border-collapse: collapse; background: var(--card); border:1px solid var(--line); border-radius: 10px; overflow:hidden; margin: 14px 0; font-size:15px; }
+  th, td { text-align:left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background:#eef0f7; }
+  tr:last-child td { border-bottom: 0; }
+  code { background:#eceef6; padding: 2px 6px; border-radius: 5px; font: 14px ui-monospace,Consolas,monospace; word-break: break-all; }
+  .step { display:inline-block; background: var(--accent); color:#fff; border-radius: 999px; padding: 1px 10px; font-size: 13px; font-weight:600; margin-right: 6px; }
+  .codewrap { position: relative; margin: 14px 0; }
+  pre { background:#10131c; color:#e8eaf2; padding: 18px; border-radius: 12px; overflow:auto; max-height: 460px; font: 13px/1.5 ui-monospace,Consolas,monospace; margin:0; }
+  button.copy { position: sticky; float: right; top: 8px; margin: 8px 8px 0 0; z-index: 2; background: var(--accent); color:#fff; border:0; border-radius: 8px; padding: 9px 16px; font-weight: 600; cursor: pointer; font-size: 14px; }
+  button.copy.done { background: var(--ok); }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  @media print { button.copy { display:none; } pre { max-height:none; } body { background:#fff; } }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Google Sheets + Razorpay payments: setup guide</h1>
+<p class="lead">The website code is finished and live. This guide covers the parts only you can do, because they need your Google and Razorpay accounts. Do <b>Part 1</b> first (sheets), then <b>Part 2</b> (payments). Part 1 works on its own, even before you have Razorpay.</p>
+
+<div class="card toc">
+  <b>Jump to</b><br>
+  <a href="#how">How it works</a> ·
+  <a href="#p1">Part 1: Google Sheets</a> ·
+  <a href="#p2">Part 2: Razorpay</a> ·
+  <a href="#p3">Part 3: Vercel settings</a> ·
+  <a href="#p4">Part 4: Test it</a> ·
+  <a href="#fix">If something looks wrong</a>
+</div>
+
+<h2 id="how">How it works</h2>
+<table>
+  <tr><th>Visitor does</th><th>What happens</th></tr>
+  <tr><td>Clicks <b>Explore Program</b> on a course, or <b>Book a Webinar</b></td><td>The sign-up form opens. Data Analytics, SQL and Data Science preselect <b>Mastery in Excel + AI (₹199)</b>. AI Mentorship preselects <b>Mastery in Claude (₹499)</b>.</td></tr>
+  <tr><td>Presses <b>Pay ₹199 &amp; Register</b></td><td>Their details are saved to the <b>Training sheet</b> as <b>Payment pending</b>, then the Razorpay pop-up opens.</td></tr>
+  <tr><td>Pays successfully</td><td>The row changes to <b>Paid</b>, with the Razorpay payment ID and the amount.</td></tr>
+  <tr><td>Closes the pop-up without paying</td><td>The row stays <b>Payment pending</b>. This is a warm lead you can follow up.</td></tr>
+  <tr><td>Fills the Corporate Training form</td><td>A row in the Training sheet, tab <b>Corporate Training Leads</b>.</td></tr>
+  <tr><td>Fills the Consultancy form</td><td>A row in the <b>Consultancy sheet</b>.</td></tr>
+</table>
+<div class="note">Until Razorpay is connected, webinar sign-ups are still saved, with the status <b>Registered (payment not collected)</b>, and nobody is charged. Connect Razorpay before you promote the webinars, or people can register for free.</div>
+
+<h2 id="p1">Part 1: Google Sheets <span style="font-weight:400;color:var(--muted);font-size:16px">(about 10 minutes, once for each sheet)</span></h2>
+<p>Do these steps <b>twice</b>: once for a sheet called <b>Athenix Training</b>, once for <b>Athenix Consultancy</b>.</p>
+<ol>
+  <li>Go to <a href="https://sheets.google.com" target="_blank" rel="noopener">sheets.google.com</a> and create a new <b>blank</b> spreadsheet. Name it. Leave it empty; the script makes the tabs and headings itself.</li>
+  <li>In the sheet, click <b>Extensions → Apps Script</b>.</li>
+  <li>Delete everything in the editor. Then paste the script below: press the purple <b>Copy script</b> button, click in the editor, press <b>Ctrl+V</b>, and click the <b>Save</b> icon.</li>
+  <li><b>(Recommended) Add a password</b> so nobody else can post to your sheet:
+    <ul>
+      <li>In Apps Script, click the <b>gear icon (Project Settings)</b> on the left.</li>
+      <li>Under <b>Script Properties</b>, click <b>Add script property</b>.</li>
+      <li>Property: <code>WEBHOOK_SECRET</code>. Value: any long random text (for example 30 random letters and digits). Save.</li>
+      <li>Use the <b>same value in both sheets</b>. You will paste it into Vercel in Part 3.</li>
+    </ul>
+  </li>
+  <li>Click <b>Deploy → New deployment</b>. Click the gear next to "Select type" and choose <b>Web app</b>.
+    <ul>
+      <li>Execute as: <b>Me</b></li>
+      <li>Who has access: <b>Anyone</b></li>
+      <li>Click <b>Deploy</b>. Google asks you to <b>Authorize access</b>: choose your account, then <b>Advanced → Go to (project) → Allow</b>. This is normal for your own script.</li>
+    </ul>
+  </li>
+  <li>Copy the <b>Web app URL</b> (it ends in <code>/exec</code>).</li>
+  <li>Open that URL in a new browser tab. You should see: <code>{"ok":true,"message":"Athenix lead intake is running."}</code></li>
+</ol>
+<p>You now have two URLs: one from the Training sheet, one from the Consultancy sheet.</p>
+<div class="note">If you ever change the script code, use <b>Deploy → Manage deployments → pencil icon → Version: New version → Deploy</b>. The URL stays the same.</div>
+
+<h3>The script to paste (same script for both sheets)</h3>
+<div class="codewrap">
+  <button class="copy" id="copybtn" type="button">Copy script</button>
+  <pre id="script">/**
+ * Athenix lead intake for Google Sheets.
+ *
+ * HOW TO USE (details in SETUP-SHEETS-AND-PAYMENTS.md):
+ *   1. Open the Google Sheet  -&gt;  Extensions  -&gt;  Apps Script.
+ *   2. Delete any code there, paste this whole file, click Save.
+ *   3. Deploy  -&gt;  New deployment  -&gt;  Web app
+ *        Execute as: Me      Who has access: Anyone
+ *   4. Copy the Web app URL into the website's environment variables.
+ *
+ * Use this SAME file in both sheets (Training and Consultancy). It creates
+ * the tabs and header rows itself, so you start with completely empty sheets.
+ *
+ *   Training sheet     -&gt;  tabs "Webinar Registrations" + "Corporate Training Leads"
+ *   Consultancy sheet  -&gt;  tab  "Consultancy Leads"
+ */
+
+var TZ = "Asia/Kolkata";
+
+var SHEETS = {
+  "webinar": {
+    name: "Webinar Registrations",
+    headers: [
+      "Submitted At", "Status", "Full Name", "Email", "WhatsApp", "Date of Birth", "Occupation",
+      "Course Interest", "Webinar", "Amount (INR)", "Order ID", "Payment ID", "Paid At", "Consent"
+    ],
+    row: function (p, d) {
+      return [
+        fmt(p.submittedAt), p.status || "", d.fullName, d.email, d.whatsapp, d.dob, d.occupation,
+        d.courseInterest, d.webinarTitle || d.webinar, p.amount, p.orderId, p.paymentId, fmt(p.paidAt),
+        d.consent === true ? "Yes" : d.consent === false ? "No" : ""
+      ];
+    }
+  },
+  "corporate-training": {
+    name: "Corporate Training Leads",
+    headers: [
+      "Submitted At", "Name", "Work Email", "Phone / WhatsApp", "Company", "Designation",
+      "Team Size", "Training Requirement", "Preferred Format", "Message"
+    ],
+    row: function (p, d) {
+      return [
+        fmt(p.submittedAt), d.fullName, d.workEmail, d.phone, d.company, d.designation,
+        d.teamSize, d.trainingRequirement, d.preferredFormat, d.message
+      ];
+    }
+  },
+  "consultancy": {
+    name: "Consultancy Leads",
+    headers: [
+      "Submitted At", "Name", "Business Email", "Phone / WhatsApp", "Company", "Industry",
+      "Business Size", "What they want to improve", "Current challenges", "Preferred contact"
+    ],
+    row: function (p, d) {
+      return [
+        fmt(p.submittedAt), d.fullName, d.businessEmail, d.phone, d.company, d.industry,
+        d.businessSize, d.improvementGoal, d.currentChallenges, d.preferredContact
+      ];
+    }
+  }
+};
+
+// Column positions (1-based) in "Webinar Registrations", used to update a row after payment.
+var COL = { status: 2, amount: 10, orderId: 11, paymentId: 12, paidAt: 13 };
+
+function doGet() {
+  return json({ ok: true, message: "Athenix lead intake is running." });
+}
+
+function doPost(e) {
+  var lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(20000);
+    var p = JSON.parse(e.postData.contents);
+
+    // Optional shared secret: set a Script Property named WEBHOOK_SECRET (see the guide).
+    var secret = PropertiesService.getScriptProperties().getProperty("WEBHOOK_SECRET");
+    if (secret &amp;&amp; p.secret !== secret) return json({ ok: false, error: "unauthorized" });
+
+    var def = SHEETS[p.formType];
+    if (!def) return json({ ok: false, error: "unknown formType: " + p.formType });
+
+    var sheet = getOrCreateSheet(def);
+    var d = p.data || {};
+
+    // After a successful payment: update the existing "Payment pending" row for this order.
+    if (p.formType === "webinar" &amp;&amp; p.action === "update" &amp;&amp; p.orderId) {
+      var row = findRow(sheet, COL.orderId, p.orderId);
+      if (row) {
+        var current = String(sheet.getRange(row, COL.status).getValue()).trim();
+        if (current === "Paid") return json({ ok: true, result: "unchanged", alreadyPaid: true });
+        sheet.getRange(row, COL.status).setValue(p.status || "Paid");
+        sheet.getRange(row, COL.amount).setValue(p.amount || "");
+        sheet.getRange(row, COL.paymentId).setValue(p.paymentId || "");
+        sheet.getRange(row, COL.paidAt).setValue(fmt(p.paidAt));
+        return json({ ok: true, result: "updated" });
+      }
+      // No pending row found (for example the first write failed): add a complete row instead.
+    }
+
+    appendRow(sheet, def.row(p, d));
+    return json({ ok: true, result: "appended" });
+  } catch (err) {
+    return json({ ok: false, error: String(err) });
+  } finally {
+    try { lock.releaseLock(); } catch (ignore) {}
+  }
+}
+
+function getOrCreateSheet(def) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(def.name);
+  if (!sheet) {
+    sheet = ss.insertSheet(def.name);
+    sheet.getRange(1, 1, 1, def.headers.length).setValues([def.headers]).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function findRow(sheet, col, value) {
+  var last = sheet.getLastRow();
+  if (last &lt; 2) return 0;
+  var values = sheet.getRange(2, col, last - 1, 1).getValues();
+  for (var i = values.length - 1; i &gt;= 0; i--) {
+    if (String(values[i][0]).trim() === String(value).trim()) return i + 2;
+  }
+  return 0;
+}
+
+function appendRow(sheet, values) {
+  var r = sheet.getLastRow() + 1;
+  var cells = values.map(function (v) { return v === undefined || v === null ? "" : String(v); });
+  var range = sheet.getRange(r, 1, 1, cells.length);
+  range.setNumberFormat("@"); // keep phone numbers like +91... as plain text
+  range.setValues([cells]);
+}
+
+function fmt(iso) {
+  if (!iso) return "";
+  try { return Utilities.formatDate(new Date(iso), TZ, "dd MMM yyyy, hh:mm a"); } catch (e) { return String(iso); }
+}
+
+function json(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+</pre>
+</div>
+
+<h2 id="p2">Part 2: Razorpay</h2>
+<ol>
+  <li>Sign up at <a href="https://razorpay.com" target="_blank" rel="noopener">razorpay.com</a> and complete the business details and KYC. You can do everything below in <b>Test Mode</b> before KYC is approved.</li>
+  <li>In the dashboard, switch on <b>Test Mode</b> (toggle at the top).</li>
+  <li>Go to <b>Account &amp; Settings → API Keys → Generate Test Key</b>. You get a <b>Key Id</b> (starts <code>rzp_test_</code>) and a <b>Key Secret</b>. Save the secret somewhere safe; it is shown only once.</li>
+  <li>Go to <b>Account &amp; Settings → Webhooks → Add New Webhook</b>:
+    <ul>
+      <li>Webhook URL: <code>https://www.athenixlearning.com/api/payments/webhook</code> (use your real site address if different)</li>
+      <li>Secret: make up a long random text (different from the other secrets). Keep it.</li>
+      <li>Active events: tick <b>payment.captured</b> and <b>order.paid</b>. Save.</li>
+    </ul>
+    <p>The webhook is a safety net: if someone pays and closes the browser before the page confirms, Razorpay still tells your website, and the sheet still says <b>Paid</b>.</p>
+  </li>
+  <li>Leave <b>Auto-capture</b> switched on in your payment settings, so successful payments are captured automatically.</li>
+</ol>
+<div class="note">When you are ready to take real money, repeat steps 2 to 4 in <b>Live Mode</b> (after KYC approval) with the <b>live</b> keys and a live webhook, then update the Vercel values in Part 3.</div>
+
+<h2 id="p3">Part 3: Put the values into Vercel</h2>
+<p>In Vercel open your project, then <b>Settings → Environment Variables</b>, and add these for <b>Production</b> (and Preview if you want to test there):</p>
+<table>
+  <tr><th>Name</th><th>Value</th></tr>
+  <tr><td><code>GOOGLE_SHEETS_TRAINING_WEBHOOK_URL</code></td><td>Web app URL of the <b>Training</b> sheet</td></tr>
+  <tr><td><code>GOOGLE_SHEETS_CONSULTANCY_WEBHOOK_URL</code></td><td>Web app URL of the <b>Consultancy</b> sheet</td></tr>
+  <tr><td><code>GOOGLE_SHEETS_WEBHOOK_SECRET</code></td><td>The <code>WEBHOOK_SECRET</code> you chose in Part 1 (skip if you skipped it)</td></tr>
+  <tr><td><code>NEXT_PUBLIC_RAZORPAY_KEY_ID</code></td><td>Razorpay <b>Key Id</b> (<code>rzp_test_...</code> first, <code>rzp_live_...</code> later)</td></tr>
+  <tr><td><code>RAZORPAY_KEY_SECRET</code></td><td>Razorpay <b>Key Secret</b>. Never share this, and never put it in the website code or in chat.</td></tr>
+  <tr><td><code>RAZORPAY_WEBHOOK_SECRET</code></td><td>The webhook secret from Part 2, step 4</td></tr>
+</table>
+<p>Then go to <b>Deployments → latest → ⋯ → Redeploy</b>. Changes to these values only take effect after a redeploy.</p>
+
+<h2 id="p4">Part 4: Test it before announcing (Test Mode)</h2>
+<ol>
+  <li>Open the live site, click <b>Book a Webinar</b>, fill the form with your own details, and press <b>Pay ₹199 &amp; Register</b>.</li>
+  <li>Razorpay Test Mode shows a test checkout. Use Razorpay's test card or test UPI details from <a href="https://razorpay.com/docs/payments/payments/test-card-details/" target="_blank" rel="noopener">their test details page</a>.</li>
+  <li>After paying, check the <b>Training sheet</b>, tab <b>Webinar Registrations</b>: your row should say <b>Paid</b>, with a payment ID that also appears in Razorpay → Transactions.</li>
+  <li>Try again but <b>close the pop-up</b>. A second row should appear as <b>Payment pending</b>.</li>
+  <li>Submit the <b>Consultancy</b> form and the <b>Corporate Training</b> form; check they land in the right sheets.</li>
+  <li>Switch to Live keys only when all of this works.</li>
+</ol>
+
+<h2 id="fix">If something looks wrong</h2>
+<ul>
+  <li><b>Visitor sees "We couldn't save your details just now":</b> the sheet could not be reached. Check the URL, the secret, and that the script is deployed as <b>Anyone</b>. The site shows this instead of pretending it worked, so no lead is silently lost.</li>
+  <li><b>Sheet is empty but the site says success:</b> the Vercel values were probably not set, or the site was not redeployed.</li>
+  <li><b>Someone paid but the row says Payment pending:</b> check Razorpay → Transactions for the payment, and check the webhook shows "delivered" under Webhooks → your webhook → Logs. You can paste the payment ID into the sheet by hand.</li>
+  <li><b>Refunds:</b> done from the Razorpay dashboard. Change the status in the sheet by hand; the site does not track refunds.</li>
+</ul>
+
+</main>
+<script>
+  document.getElementById("copybtn").addEventListener("click", function () {
+    var btn = this, text = document.getElementById("script").textContent;
+    function done() { btn.textContent = "Copied!"; btn.classList.add("done"); setTimeout(function(){ btn.textContent = "Copy script"; btn.classList.remove("done"); }, 2200); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(text).then(done, fallback); } else { fallback(); }
+    function fallback() { var r = document.createRange(); r.selectNodeContents(document.getElementById("script")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Select all (Ctrl+A) then copy"; } }
+  });
+</script>
+</body>
+</html>
