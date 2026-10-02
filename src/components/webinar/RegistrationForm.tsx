@@ -10,37 +10,32 @@ import {
   webinars,
 } from "@/content/webinars";
 import { trackEvent } from "@/lib/analytics";
+import { useWebinarModal } from "./WebinarModalContext";
 
 type Status = "idle" | "submitting" | "paying" | "verifying" | "success" | "error";
-
-/** Payments are on once the Razorpay key id is configured (the key id is public by design). */
-const PAYMENTS_ENABLED = Boolean(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
 
 type OrderResponse = {
   mode: "payment" | "free";
   orderId: string;
-  amount: number;
-  currency: string;
-  keyId: string;
+  paymentSessionId: string;
+  env: "sandbox" | "production";
   webinarTitle: string;
-  prefill: { name: string; email: string; contact: string };
 };
 
-type RazorpaySuccess = { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string };
-type RazorpayInstance = {
-  open: () => void;
-  on: (event: "payment.failed", cb: (r: { error?: { description?: string } }) => void) => void;
+type CheckoutResult = { error?: { message?: string }; paymentDetails?: unknown; redirect?: boolean };
+type CashfreeInstance = {
+  checkout: (options: { paymentSessionId: string; redirectTarget: "_modal" }) => Promise<CheckoutResult>;
 };
-type RazorpayCtor = new (options: Record<string, unknown>) => RazorpayInstance;
+type CashfreeFactory = (config: { mode: "sandbox" | "production" }) => CashfreeInstance;
 
-function loadRazorpayCheckout(): Promise<RazorpayCtor | null> {
-  const w = window as unknown as { Razorpay?: RazorpayCtor };
-  if (w.Razorpay) return Promise.resolve(w.Razorpay);
+function loadCashfreeSdk(): Promise<CashfreeFactory | null> {
+  const w = window as unknown as { Cashfree?: CashfreeFactory };
+  if (w.Cashfree) return Promise.resolve(w.Cashfree);
   return new Promise((resolve) => {
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
     script.async = true;
-    script.onload = () => resolve(w.Razorpay ?? null);
+    script.onload = () => resolve(w.Cashfree ?? null);
     script.onerror = () => resolve(null);
     document.body.appendChild(script);
   });
@@ -53,6 +48,7 @@ export default function RegistrationForm({
   defaultWebinarSlug?: string;
   defaultCourseInterest?: string;
 }) {
+  const { paymentsEnabled } = useWebinarModal();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState<string | null>(null);
@@ -66,10 +62,9 @@ export default function RegistrationForm({
   );
   const selectedWebinar = getWebinarBySlug(webinarSlug);
 
-  // A Razorpay order can be paid more than once, so a retry reuses it instead of
-  // creating a duplicate order (and a duplicate "Payment pending" row).
+  // A retry with unchanged details reuses the same order instead of creating a
+  // duplicate order (and a duplicate "Payment pending" row).
   const orderCache = useRef<{ key: string; order: OrderResponse } | null>(null);
-  const settled = useRef(false);
 
   function onCourseChange(value: string) {
     setCourseInterest(value);
@@ -77,77 +72,56 @@ export default function RegistrationForm({
     if (match) setWebinarSlug(match);
   }
 
-  async function confirmPayment(order: OrderResponse, response: RazorpaySuccess) {
-    settled.current = true;
+  /** Ask the server (which asks Cashfree) whether the order was really paid. */
+  async function confirmPayment(order: OrderResponse) {
     setStatus("verifying");
     try {
       const res = await fetch("/api/payments/verify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          orderId: response.razorpay_order_id,
-          paymentId: response.razorpay_payment_id,
-          signature: response.razorpay_signature,
-        }),
+        body: JSON.stringify({ orderId: order.orderId }),
       });
       const json = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setServerError(
-          json.message ??
-            `We couldn't confirm your payment automatically. If money was deducted, please write to us at ${companyInfo.email} with payment ID ${response.razorpay_payment_id}.`
-        );
-        setStatus("error");
+      if (res.ok && json.paid) {
+        setPaymentRef(json.paymentId ?? null);
+        trackEvent("webinar_payment_success", { webinar: order.webinarTitle });
+        orderCache.current = null;
+        setStatus("success");
         return;
       }
-      setPaymentRef(response.razorpay_payment_id);
-      trackEvent("webinar_payment_success", { webinar: order.webinarTitle });
-      orderCache.current = null;
-      setStatus("success");
+      trackEvent("webinar_payment_failed", { webinar: order.webinarTitle });
+      setServerError(
+        res.ok
+          ? `Your payment wasn't completed, so your spot isn't confirmed yet. Your details are saved. Press the button to try again. If money was deducted, your spot will be confirmed automatically, or write to us at ${companyInfo.email}.`
+          : json.message ?? `We couldn't confirm your payment just now. If money was deducted, please write to us at ${companyInfo.email}.`
+      );
+      setStatus("error");
     } catch {
       setServerError(
-        `Your payment went through, but we couldn't confirm it on screen. Please write to us at ${companyInfo.email} with payment ID ${response.razorpay_payment_id} and we'll confirm your spot.`
+        `We couldn't confirm your payment on screen. If money was deducted, please write to us at ${companyInfo.email} and we'll confirm your spot.`
       );
       setStatus("error");
     }
   }
 
   async function openCheckout(order: OrderResponse) {
-    const Razorpay = await loadRazorpayCheckout();
-    if (!Razorpay) {
+    const Cashfree = await loadCashfreeSdk();
+    if (!Cashfree) {
       setServerError("We couldn't load the secure payment window. Please check your connection and try again.");
       setStatus("error");
       return;
     }
-    settled.current = false;
     setStatus("paying");
-    const checkout = new Razorpay({
-      key: order.keyId,
-      order_id: order.orderId,
-      amount: order.amount,
-      currency: order.currency,
-      name: "Athenix Learning",
-      description: order.webinarTitle,
-      prefill: order.prefill,
-      theme: { color: "#6247ff" },
-      handler: (response: RazorpaySuccess) => void confirmPayment(order, response),
-      modal: {
-        ondismiss: () => {
-          if (settled.current) return;
-          setServerError(
-            "Your payment wasn't completed, so your spot isn't confirmed yet. Your details are saved. Press the button to try again."
-          );
-          setStatus("error");
-        },
-      },
-    });
-    checkout.on("payment.failed", (r) => {
-      trackEvent("webinar_payment_failed", { webinar: order.webinarTitle });
-      setServerError(
-        `${r.error?.description ?? "The payment didn't go through."} Please try again, or use a different payment method.`
-      );
-      setStatus("error");
-    });
-    checkout.open();
+    try {
+      await Cashfree({ mode: order.env }).checkout({
+        paymentSessionId: order.paymentSessionId,
+        redirectTarget: "_modal",
+      });
+    } catch {
+      // A closed or failed window is handled by the server check below.
+    }
+    // Whatever the pop-up reports, the server checks with Cashfree before anyone is marked Paid.
+    await confirmPayment(order);
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -231,7 +205,7 @@ export default function RegistrationForm({
 
   const busy = status === "submitting" || status === "paying" || status === "verifying";
   const price = selectedWebinar?.priceLabel;
-  const buttonLabel = PAYMENTS_ENABLED
+  const buttonLabel = paymentsEnabled
     ? {
         idle: price ? `Pay ${price} & Register` : "Pay & Register",
         error: price ? `Pay ${price} & Register` : "Pay & Register",
@@ -372,9 +346,9 @@ export default function RegistrationForm({
         {buttonLabel}
       </button>
 
-      {PAYMENTS_ENABLED ? (
+      {paymentsEnabled ? (
         <p className="text-center text-xs text-white/50">
-          Secure payment by Razorpay (UPI, cards and netbanking). See our{" "}
+          Secure payment by Cashfree (UPI, cards and netbanking). See our{" "}
           <a href="/refund-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
             Refund &amp; Cancellation Policy
           </a>

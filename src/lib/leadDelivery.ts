@@ -151,10 +151,10 @@ const submissionLog = new Map<string, number[]>();
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_SUBMISSIONS_PER_WINDOW = 5;
 
-export function isRateLimited(identifier: string): boolean {
+export function isRateLimited(identifier: string, max = MAX_SUBMISSIONS_PER_WINDOW): boolean {
   const now = Date.now();
   const timestamps = (submissionLog.get(identifier) ?? []).filter((t) => now - t < WINDOW_MS);
   timestamps.push(now);
   submissionLog.set(identifier, timestamps);
-  return timestamps.length > MAX_SUBMISSIONS_PER_WINDOW;
+  return timestamps.length > max;
 }

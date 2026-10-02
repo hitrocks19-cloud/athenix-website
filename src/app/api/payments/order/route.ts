@@ -1,19 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { webinarRegistrationSchema } from "@/lib/validation";
 import { deliverLead, isLeadSaved, isRateLimited } from "@/lib/leadDelivery";
-import { createOrder, getRazorpayKeyId, isRazorpayConfigured, priceToPaise } from "@/lib/razorpay";
+import { cashfreeMode, createOrder, isCashfreeConfigured, newOrderId } from "@/lib/cashfree";
 import { getWebinarBySlug } from "@/content/webinars";
 import { companyInfo } from "@/content/company";
+import { siteUrl } from "@/lib/site";
 
 /**
  * Step 1 of a paid webinar registration.
  *  - Validates the form and looks the price up on the SERVER (the browser never
  *    sets the amount).
- *  - Razorpay configured: creates an order, saves the person to the Training
+ *  - Cashfree configured: creates an order, saves the person to the Training
  *    sheet as "Payment pending" (so abandoned payments stay follow-up leads),
- *    and returns what Checkout needs.
- *  - Razorpay not configured yet: saves the registration as "Registered
- *    (payment not collected)" so nothing is lost while payments are being set up.
+ *    and returns what the checkout pop-up needs.
+ *  - Cashfree not configured yet: saves the registration as "Registered
+ *    (payment not collected)" so nothing is lost while payments are set up.
  */
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") ?? "unknown";
@@ -60,14 +61,12 @@ export async function POST(req: NextRequest) {
   const leadData = { ...data, webinarTitle: webinar.title };
 
   const saveFailed = NextResponse.json(
-    {
-      message: `We couldn't save your details just now. Please try again, or write to us at ${companyInfo.email}.`,
-    },
+    { message: `We couldn't save your details just now. Please try again, or write to us at ${companyInfo.email}.` },
     { status: 502 }
   );
 
   // ---- Payments not set up yet: keep capturing registrations.
-  if (!isRazorpayConfigured()) {
+  if (!isCashfreeConfigured()) {
     const result = await deliverLead({
       formType: "webinar",
       submittedAt,
@@ -79,12 +78,16 @@ export async function POST(req: NextRequest) {
   }
 
   // ---- Payments live: create the order, then record the pending row.
+  const orderId = newOrderId();
   let order;
   try {
     order = await createOrder({
-      amountPaise: priceToPaise(webinar.price),
-      receipt: `ath_${Date.now().toString(36)}`,
-      notes: {
+      orderId,
+      amountRupees,
+      customer: { // Cashfree wants an alphanumeric customer id (no underscores or dashes).
+        id: `cust${orderId.replace(/[^A-Za-z0-9]/g, "").slice(0, 40)}`, name: data.fullName, email: data.email, phone: data.whatsapp },
+      note: webinar.title,
+      tags: {
         fullName: data.fullName,
         email: data.email,
         whatsapp: data.whatsapp,
@@ -93,9 +96,14 @@ export async function POST(req: NextRequest) {
         webinar: webinar.slug,
         webinarTitle: webinar.title,
       },
+      // After checkout (including when a UPI app sends the customer back) Cashfree
+      // returns them here; that page asks the server to confirm the payment.
+      returnUrl: `${siteUrl}/payment-status?order_id={order_id}`,
+      notifyUrl: siteUrl.startsWith("https://") ? `${siteUrl}/api/payments/webhook` : undefined,
     });
+    if (!order.payment_session_id) throw new Error("Cashfree did not return a payment session.");
   } catch (err) {
-    console.error("[payments/order] Razorpay order creation failed:", err);
+    console.error("[payments/order] Cashfree order creation failed:", err);
     // Still keep the lead so it can be followed up manually.
     await deliverLead({
       formType: "webinar",
@@ -117,19 +125,17 @@ export async function POST(req: NextRequest) {
     submittedAt,
     data: leadData,
     status: "Payment pending",
-    orderId: order.id,
+    orderId,
     amount: amountRupees,
   });
 
   return NextResponse.json(
     {
       mode: "payment",
-      orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      keyId: getRazorpayKeyId(),
+      orderId,
+      paymentSessionId: order.payment_session_id,
+      env: cashfreeMode(),
       webinarTitle: webinar.title,
-      prefill: { name: data.fullName, email: data.email, contact: data.whatsapp },
     },
     { status: 200 }
   );

@@ -1,27 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyWebhookSignature } from "@/lib/razorpay";
+import { isCashfreeConfigured, verifyWebhookSignature } from "@/lib/cashfree";
 import { recordPaidOrder } from "@/lib/paymentRecords";
 
 /**
  * Safety net for the case where someone pays and then closes the tab before
- * the browser can call /verify. Razorpay calls this URL itself, signed with
- * RAZORPAY_WEBHOOK_SECRET. Set it up in the Razorpay dashboard for the events
- * `payment.captured` and `order.paid`.
+ * the browser can confirm. Cashfree calls this URL itself (we set it as the
+ * order's notify_url, so no dashboard setup is needed), signed with your
+ * Secret Key. Only successful payments are acted on.
  */
 export async function POST(req: NextRequest) {
-  const rawBody = await req.text();
-  const signature = req.headers.get("x-razorpay-signature") ?? "";
-
-  if (!process.env.RAZORPAY_WEBHOOK_SECRET) {
-    return NextResponse.json({ message: "Webhook is not configured." }, { status: 503 });
+  if (!isCashfreeConfigured()) {
+    return NextResponse.json({ message: "Payments are not enabled." }, { status: 503 });
   }
-  if (!verifyWebhookSignature(rawBody, signature)) {
+
+  const rawBody = await req.text();
+  const signature = req.headers.get("x-webhook-signature") ?? "";
+  const timestamp = req.headers.get("x-webhook-timestamp") ?? "";
+  if (!verifyWebhookSignature(rawBody, timestamp, signature)) {
     return NextResponse.json({ message: "Invalid signature." }, { status: 400 });
   }
 
   let event: {
-    event?: string;
-    payload?: { payment?: { entity?: { id?: string; order_id?: string; amount?: number; notes?: unknown } } };
+    type?: string;
+    data?: {
+      order?: { order_id?: string; order_amount?: number; order_tags?: Record<string, unknown> | null };
+      payment?: { cf_payment_id?: string | number; payment_status?: string; payment_amount?: number };
+    };
   };
   try {
     event = JSON.parse(rawBody);
@@ -29,26 +33,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Bad payload." }, { status: 400 });
   }
 
-  if (event.event !== "payment.captured" && event.event !== "order.paid") {
-    // Other events are acknowledged and ignored.
+  const order = event.data?.order;
+  const payment = event.data?.payment;
+  const isSuccess =
+    (event.type === "PAYMENT_SUCCESS_WEBHOOK" || event.type === "PAYMENT_SUCCESS") &&
+    payment?.payment_status === "SUCCESS";
+
+  if (!isSuccess || !order?.order_id || payment?.cf_payment_id == null) {
+    // Failed payments, dashboard test pings and other events are acknowledged and ignored.
     return NextResponse.json({ ok: true, ignored: true }, { status: 200 });
   }
 
-  const payment = event.payload?.payment?.entity;
-  if (!payment?.id || !payment.order_id) {
-    return NextResponse.json({ ok: true, ignored: true }, { status: 200 });
-  }
-
-  const rawNotes = payment.notes;
+  const tags = order.order_tags;
   const notes: Record<string, string> | undefined =
-    rawNotes && typeof rawNotes === "object" && !Array.isArray(rawNotes)
-      ? Object.fromEntries(Object.entries(rawNotes as Record<string, unknown>).map(([k, v]) => [k, String(v)]))
+    tags && typeof tags === "object"
+      ? Object.fromEntries(Object.entries(tags).map(([k, v]) => [k, String(v)]))
       : undefined;
 
   await recordPaidOrder({
-    orderId: payment.order_id,
-    paymentId: payment.id,
-    amountPaise: payment.amount ?? 0,
+    orderId: order.order_id,
+    paymentId: String(payment.cf_payment_id),
+    amountRupees: Number(payment.payment_amount ?? order.order_amount ?? 0),
     notes,
   });
 

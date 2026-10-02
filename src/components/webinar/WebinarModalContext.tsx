@@ -4,6 +4,8 @@ import { createContext, ReactNode, useCallback, useContext, useMemo, useState } 
 
 type WebinarModalContextValue = {
   isOpen: boolean;
+  /** True once the payment gateway is configured on the server. */
+  paymentsEnabled: boolean;
   hasBeenOpened: boolean;
   selectedWebinarSlug: string | undefined;
   selectedCourseInterest: string | undefined;
@@ -13,7 +15,13 @@ type WebinarModalContextValue = {
 
 const WebinarModalContext = createContext<WebinarModalContextValue | null>(null);
 
-export function WebinarModalProvider({ children }: { children: ReactNode }) {
+export function WebinarModalProvider({
+  children,
+  paymentsEnabled = false,
+}: {
+  children: ReactNode;
+  paymentsEnabled?: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [selectedWebinarSlug, setSelectedWebinarSlug] = useState<string | undefined>(undefined);
@@ -29,8 +37,8 @@ export function WebinarModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setIsOpen(false), []);
 
   const value = useMemo(
-    () => ({ isOpen, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close }),
-    [isOpen, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close]
+    () => ({ isOpen, paymentsEnabled, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close }),
+    [isOpen, paymentsEnabled, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close]
   );
 
   return <WebinarModalContext.Provider value={value}>{children}</WebinarModalContext.Provider>;

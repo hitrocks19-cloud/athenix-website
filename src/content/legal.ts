@@ -36,7 +36,7 @@ export const privacyPolicySections: LegalSection[] = [
   {
     heading: "Data Sharing",
     body: ["Information may be shared only with:"],
-    bullets: ["Payment gateway providers (e.g., Razorpay)", "Legal or regulatory authorities if required by law"],
+    bullets: ["Payment gateway providers (e.g., Cashfree)", "Legal or regulatory authorities if required by law"],
   },
   {
     heading: "",

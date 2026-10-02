@@ -1,19 +1,19 @@
-# Setup guide: Google Sheets + Razorpay payments
+# Setup guide: Google Sheets + Cashfree payments
 
-The website code is finished. This guide covers the parts only you can do, because they need your Google and Razorpay accounts. Do **Part 1** first (sheets), then **Part 2** (payments). Part 1 works on its own, even before you have Razorpay.
+The website code is finished. This guide covers the parts only you can do, because they need your Google and Cashfree accounts. Do **Part 1** first (sheets), then **Part 2** (payments). Part 1 works on its own, even before Cashfree approves you.
 
 ## How it works
 
 | Visitor does | What happens |
 |---|---|
 | Clicks **Explore Program** on a course, or **Book a Webinar** | The sign-up form opens. Data Analytics, SQL and Data Science preselect **Mastery in Excel + AI (₹199)**. AI Mentorship preselects **Mastery in Claude (₹499)**. |
-| Presses **Pay ₹199 & Register** | Their details are saved to the **Training sheet** as **Payment pending**, then the Razorpay pop-up opens. |
-| Pays successfully | The row changes to **Paid**, with the Razorpay payment ID and the amount. |
+| Presses **Pay ₹199 & Register** | Their details are saved to the **Training sheet** as **Payment pending**, then the Cashfree payment pop-up opens. |
+| Pays successfully | The row changes to **Paid**, with the Cashfree payment ID and the amount. |
 | Closes the pop-up without paying | The row stays **Payment pending**. This is a warm lead you can follow up. |
 | Fills the Corporate Training form | A row in the Training sheet, tab **Corporate Training Leads**. |
 | Fills the Consultancy form | A row in the **Consultancy sheet**. |
 
-Until Razorpay is connected, webinar sign-ups are still saved, with status **Registered (payment not collected)**.
+Until Cashfree is connected, webinar sign-ups are still saved, with status **Registered (payment not collected)**.
 
 ---
 
@@ -42,55 +42,48 @@ You now have two URLs: one from the Training sheet, one from the Consultancy she
 
 ---
 
-## Part 2: Razorpay
+## Part 2: Cashfree
 
-1. Sign up at <https://razorpay.com> and complete the business details and KYC. You can do everything below in **Test Mode** before KYC is approved.
-2. In the dashboard, switch on **Test Mode** (toggle at the top).
-3. Go to **Account & Settings → API Keys → Generate Test Key**. You get a **Key Id** (starts `rzp_test_`) and a **Key Secret**. Save the secret somewhere safe; it is shown only once.
-4. Go to **Account & Settings → Webhooks → Add New Webhook**:
-   - Webhook URL: `https://www.athenixlearning.com/api/payments/webhook`
-   - Secret: make up a long random text (not the same as the other secrets). Keep it.
-   - Active events: tick **payment.captured** and **order.paid**.
-   - Save.
+1. Log in at <https://merchant.cashfree.com>. You can do everything below in **Test (Sandbox) mode** before your account is fully approved.
+2. Go to **Developers → API Keys** (Payment Gateway) and generate the **Test** keys: an **App ID** and a **Secret Key**. Save the secret somewhere safe.
+3. Nothing else to set up in Cashfree. **No webhook is needed in the dashboard**: the website tells Cashfree where to send confirmations by itself.
+4. When approved for real payments, generate the **live** keys in Live (Production) mode and use them with `CASHFREE_ENV=production`.
 
-   The webhook is a safety net: if someone pays and closes the browser before the page confirms, Razorpay still tells your website, and the sheet still says **Paid**.
-5. In **Account & Settings → Payments** (or Checkout settings), leave **Auto-capture** on, so successful payments are captured automatically.
-
-When you are ready to take real money, repeat steps 2 to 4 in **Live Mode** (after KYC approval) with the **live** keys and a live webhook, then update the Vercel values in Part 3.
+> Check with Cashfree: (1) the website address you registered is the one the site really uses; (2) if the dashboard asks you to **whitelist IP addresses** for the API keys, tell me or ask Cashfree support, because Vercel has no single fixed IP and a restriction would block payments.
+>
+> If Cashfree gives you only a **payment link or page** instead of an App ID and Secret Key, tell me before continuing. That works differently.
 
 ---
 
 ## Part 3: Put the values into Vercel
 
-In Vercel open your project, then **Settings → Environment Variables**, and add the following for **Production** (and Preview if you want to test there):
+In Vercel: **Settings → Environment Variables** (Production, and Preview if you want to test there):
 
 | Name | Value |
 |---|---|
 | `GOOGLE_SHEETS_TRAINING_WEBHOOK_URL` | Web app URL of the **Training** sheet |
 | `GOOGLE_SHEETS_CONSULTANCY_WEBHOOK_URL` | Web app URL of the **Consultancy** sheet |
-| `GOOGLE_SHEETS_WEBHOOK_SECRET` | The `WEBHOOK_SECRET` you chose in Part 1 (skip if you skipped it) |
-| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay **Key Id** (`rzp_test_...` first, `rzp_live_...` later) |
-| `RAZORPAY_KEY_SECRET` | Razorpay **Key Secret**. Never share this, and never put it in the website code or in chat. |
-| `RAZORPAY_WEBHOOK_SECRET` | The webhook secret from Part 2, step 4 |
+| `GOOGLE_SHEETS_WEBHOOK_SECRET` | The `WEBHOOK_SECRET` from Part 1 (skip if you skipped it) |
+| `CASHFREE_APP_ID` | Cashfree **App ID** |
+| `CASHFREE_SECRET_KEY` | Cashfree **Secret Key** (never share it or put it in chat) |
+| `CASHFREE_ENV` | `sandbox` with test keys, `production` with live keys |
 
-Then **Deployments → latest → ⋯ → Redeploy**. Changes to these values only take effect after a redeploy.
-
-The same names are listed in `.env.example`. To test on your own computer, copy them into `.env.local`.
+Then **Deployments → latest → ⋯ → Redeploy**. Changes only take effect after a redeploy.
 
 ---
 
-## Part 4: Test it before announcing (Test Mode)
+## Part 4: Test it before announcing (Test mode)
 
-1. Open the live site, click **Book a Webinar**, fill the form with your own details, and press **Pay ₹199 & Register**.
-2. Razorpay Test Mode shows a test checkout. Use Razorpay's test card or test UPI details from their docs (<https://razorpay.com/docs/payments/payments/test-card-details/>).
-3. After paying, check the **Training sheet**, tab **Webinar Registrations**: your row should say **Paid** with a payment ID that also appears in Razorpay → Transactions.
-4. Try again but **close the pop-up**. A second row should appear as **Payment pending**.
-5. Submit the **Consultancy** form and the **Corporate Training** form; check they land in the right sheets.
-6. Switch to Live keys only when all of this works.
+1. On the live site click **Book a Webinar**, fill it with your own details, press **Pay ₹199 & Register**.
+2. Use Cashfree's test card / UPI details: <https://www.cashfree.com/docs/payments/online/resources/sandbox-environment>
+3. Check the **Training sheet**, tab **Webinar Registrations**: your row should say **Paid** with a payment ID that matches Cashfree → Transactions.
+4. Try again but **close the pop-up**: a row should appear as **Payment pending**.
+5. Submit the Consultancy and Corporate Training forms and check they land in the right sheets.
+6. Switch to live keys (`CASHFREE_ENV=production`) only when all of this works.
 
 ## If something looks wrong
 
 - **Visitor sees "We couldn't save your details just now":** the sheet could not be reached. Check the URL, the secret, and that the script is deployed as **Anyone**. The site shows this instead of pretending it worked, so no lead is silently lost.
 - **Sheet is empty but the site says success:** the Vercel values were probably not set or the site was not redeployed. Webinar sign-ups made before payments are connected still show in the sheet as "Registered (payment not collected)".
-- **Someone paid but the row says Payment pending:** check Razorpay → Transactions for the payment, and check the webhook shows "delivered" under Webhooks → your webhook → Logs. The payment ID can be pasted into the sheet by hand.
-- **Refunds:** done from the Razorpay dashboard. Remember to change the status in the sheet by hand; the site does not track refunds.
+- **Someone paid but the row says Payment pending:** check the Cashfree dashboard (Transactions). The website also confirms payments by itself when the person returns to the site, so this is rare. You can mark the row Paid and paste the payment ID by hand.
+- **Refunds:** done from the Cashfree dashboard. Remember to change the status in the sheet by hand; the site does not track refunds.

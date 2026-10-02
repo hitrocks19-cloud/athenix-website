@@ -1,52 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchOrder, isRazorpayConfigured, verifyPaymentSignature } from "@/lib/razorpay";
+import { fetchOrder, fetchSuccessfulPaymentId, isCashfreeConfigured, ORDER_ID_PATTERN } from "@/lib/cashfree";
 import { recordPaidOrder } from "@/lib/paymentRecords";
 import { isRateLimited } from "@/lib/leadDelivery";
-import { companyInfo } from "@/content/company";
 
 /**
- * Step 2: the browser reports a finished Checkout. Nothing is trusted from the
- * browser except the three values Razorpay signed. We check the signature with
- * the key secret, then read the order back from Razorpay (amount + notes)
- * before marking the registration Paid.
+ * Step 2: "was this order actually paid?" Nothing is trusted from the browser.
+ * We ask Cashfree directly. Only if Cashfree says the order is PAID do we mark
+ * the registration Paid. Calling this with any order id is harmless: it can
+ * only ever report what Cashfree itself says.
+ *
+ * Used right after the checkout pop-up closes, and by the /payment-status page
+ * that Cashfree sends people back to (for example after a UPI app).
  */
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") ?? "unknown";
-  if (isRateLimited(`verify:${ip}`)) {
+  if (isRateLimited(`verify:${ip}`, 30)) {
     return NextResponse.json({ message: "Too many attempts. Please wait a moment and try again." }, { status: 429 });
   }
-  if (!isRazorpayConfigured()) {
+  if (!isCashfreeConfigured()) {
     return NextResponse.json({ message: "Payments are not enabled." }, { status: 503 });
   }
 
   const body = await req.json().catch(() => null);
   const orderId = typeof body?.orderId === "string" ? body.orderId : "";
-  const paymentId = typeof body?.paymentId === "string" ? body.paymentId : "";
-  const signature = typeof body?.signature === "string" ? body.signature : "";
+  if (!ORDER_ID_PATTERN.test(orderId)) {
+    return NextResponse.json({ message: "That payment reference doesn't look right." }, { status: 400 });
+  }
 
-  if (!verifyPaymentSignature(orderId, paymentId, signature)) {
+  let order;
+  try {
+    order = await fetchOrder(orderId);
+  } catch (err) {
+    console.error("[payments/verify] Could not read the order from Cashfree:", err);
     return NextResponse.json(
-      {
-        message: `We couldn't confirm that payment automatically. If money was deducted, please write to us at ${companyInfo.email} with payment ID ${paymentId || "(not available)"}.`,
-      },
-      { status: 400 }
+      { message: "We couldn't check your payment just now. Please try again in a moment." },
+      { status: 502 }
     );
   }
 
-  // Signature is genuine, so the payment exists. Read the order for amount and notes.
-  let amountPaise = 0;
-  let notes: Record<string, string> | undefined;
-  try {
-    const order = await fetchOrder(orderId);
-    amountPaise = order.amount_paid || order.amount;
-    notes = order.notes;
-  } catch (err) {
-    console.error("[payments/verify] Could not read order back (payment is still valid):", err);
+  if (order.order_status !== "PAID") {
+    // ACTIVE = no successful payment yet (pending UPI, cancelled, or abandoned).
+    return NextResponse.json({ paid: false, status: order.order_status }, { status: 200 });
   }
 
-  await recordPaidOrder({ orderId, paymentId, amountPaise, notes });
+  const paymentId = (await fetchSuccessfulPaymentId(orderId)) ?? String(order.cf_order_id ?? orderId);
+  await recordPaidOrder({
+    orderId,
+    paymentId,
+    amountRupees: Number(order.order_amount),
+    notes: order.order_tags ?? undefined,
+  });
 
-  // The payment is real whether or not the sheet write worked; Razorpay is the
-  // record of truth and the webhook will retry the sheet update.
-  return NextResponse.json({ ok: true, paymentId }, { status: 200 });
+  // The payment is real whether or not the sheet write worked: Cashfree is the
+  // record of truth and the webhook retries the sheet update.
+  return NextResponse.json({ paid: true, paymentId }, { status: 200 });
 }
