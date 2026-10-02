@@ -3,13 +3,13 @@ import { Webinar } from "@/types";
 export const webinars: Webinar[] = [
   {
     slug: "excel-webinar",
-    title: "Excel Webinar",
+    title: "Mastery in Excel + AI",
     price: "199",
     priceLabel: "₹199",
     description:
-      "A live, hands-on Excel session built for real work, not theory. Learn techniques you can use on your own files the same day.",
+      "A live, hands-on session on mastering Excel with AI, built for real work, not theory. Learn techniques you can use on your own files the same day.",
     bullets: [
-      "Practical Excel techniques you can apply straight away",
+      "Practical Excel and AI techniques you can apply straight away",
       "Live Q&A so you can ask what is holding you up",
       "Beginner-friendly and built for working professionals",
     ],

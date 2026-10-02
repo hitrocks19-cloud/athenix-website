@@ -19,7 +19,7 @@ export const faqs: Faq[] = [
   {
     question: "How do I get started?",
     answer:
-      "The easiest first step is a webinar. The Excel Webinar is ₹199 and Mastery in Claude is ₹499, so you can see how we teach before committing to a program. If you are exploring corporate training or consultancy, send us a message and we will take it from there.",
+      "The easiest first step is a webinar. Mastery in Excel + AI is ₹199 and Mastery in Claude is ₹499, so you can see how we teach before committing to a program. If you are exploring corporate training or consultancy, send us a message and we will take it from there.",
   },
   {
     question: "Are the sessions live or recorded?",
