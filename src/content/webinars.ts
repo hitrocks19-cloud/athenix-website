@@ -51,3 +51,18 @@ export const occupationOptions = [
   "Educator",
   "Other",
 ];
+
+/**
+ * The funnel: what a visitor is interested in decides which webinar they are
+ * pointed to. Data Analytics / SQL / Data Science learners start with
+ * "Mastery in Excel + AI"; AI Mentorship leads start with "Mastery in Claude".
+ * "Not Sure Yet" has no match, so the visitor chooses themselves.
+ */
+export const courseWebinarMap: Record<string, string> = {
+  "Data Analytics + AI": "excel-webinar",
+  "Data Analytics + SQL + AI": "excel-webinar",
+  "Data Science": "excel-webinar",
+  "AI Mentorship Program": "mastery-in-claude",
+};
+
+export const getWebinarBySlug = (slug: string | null | undefined) => webinars.find((w) => w.slug === slug);

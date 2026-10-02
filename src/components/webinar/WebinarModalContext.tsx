@@ -6,7 +6,8 @@ type WebinarModalContextValue = {
   isOpen: boolean;
   hasBeenOpened: boolean;
   selectedWebinarSlug: string | undefined;
-  open: (webinarSlug?: string) => void;
+  selectedCourseInterest: string | undefined;
+  open: (webinarSlug?: string, courseInterest?: string) => void;
   close: () => void;
 };
 
@@ -16,9 +17,11 @@ export function WebinarModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [selectedWebinarSlug, setSelectedWebinarSlug] = useState<string | undefined>(undefined);
+  const [selectedCourseInterest, setSelectedCourseInterest] = useState<string | undefined>(undefined);
 
-  const open = useCallback((webinarSlug?: string) => {
+  const open = useCallback((webinarSlug?: string, courseInterest?: string) => {
     setSelectedWebinarSlug(webinarSlug);
+    setSelectedCourseInterest(courseInterest);
     setIsOpen(true);
     setHasBeenOpened(true);
   }, []);
@@ -26,8 +29,8 @@ export function WebinarModalProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setIsOpen(false), []);
 
   const value = useMemo(
-    () => ({ isOpen, hasBeenOpened, selectedWebinarSlug, open, close }),
-    [isOpen, hasBeenOpened, selectedWebinarSlug, open, close]
+    () => ({ isOpen, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close }),
+    [isOpen, hasBeenOpened, selectedWebinarSlug, selectedCourseInterest, open, close]
   );
 
   return <WebinarModalContext.Provider value={value}>{children}</WebinarModalContext.Provider>;

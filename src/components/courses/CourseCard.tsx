@@ -1,6 +1,6 @@
 import { Course } from "@/types";
 import Badge from "@/components/ui/Badge";
-import { ButtonLink } from "@/components/ui/Button";
+import CourseWebinarButton from "@/components/courses/CourseWebinarButton";
 import TiltCard from "@/components/ui/TiltCard";
 
 export default function CourseCard({ course }: { course: Course }) {
@@ -32,9 +32,9 @@ export default function CourseCard({ course }: { course: Course }) {
           </div>
         </div>
 
-        <ButtonLink href="#webinars" variant={course.flagship ? "primary" : "secondary"} className="mt-6">
+        <CourseWebinarButton courseName={course.name} variant={course.flagship ? "primary" : "secondary"}>
           {course.ctaLabel}
-        </ButtonLink>
+        </CourseWebinarButton>
       </div>
     </TiltCard>
   );

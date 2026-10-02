@@ -5,7 +5,7 @@ import { useWebinarModal } from "./WebinarModalContext";
 import RegistrationForm from "./RegistrationForm";
 
 export default function WebinarModal() {
-  const { isOpen, close, selectedWebinarSlug } = useWebinarModal();
+  const { isOpen, close, selectedWebinarSlug, selectedCourseInterest } = useWebinarModal();
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function WebinarModal() {
           It takes about a minute. We&apos;ll send the webinar details to the email and WhatsApp number you share.
         </p>
 
-        <RegistrationForm defaultWebinarSlug={selectedWebinarSlug} />
+        <RegistrationForm defaultWebinarSlug={selectedWebinarSlug} defaultCourseInterest={selectedCourseInterest} />
       </div>
     </div>
   );

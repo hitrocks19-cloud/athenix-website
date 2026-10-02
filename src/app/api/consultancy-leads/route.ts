@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { consultancySchema } from "@/lib/validation";
-import { deliverLead, isRateLimited } from "@/lib/leadDelivery";
+import { deliverLead, isLeadSaved, isRateLimited } from "@/lib/leadDelivery";
+import { companyInfo } from "@/content/company";
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") ?? "unknown";
@@ -33,5 +34,12 @@ export async function POST(req: NextRequest) {
     data: parsed.data,
   });
 
-  return NextResponse.json({ message: "Success", delivery: result }, { status: 200 });
+  if (!isLeadSaved(result)) {
+    return NextResponse.json(
+      { message: `We couldn't save your details just now. Please try again, or write to us at ${companyInfo.email}.` },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ message: "Success" }, { status: 200 });
 }

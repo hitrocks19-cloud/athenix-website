@@ -11,6 +11,8 @@ export type AnalyticsEvent =
   | "webinar_popup_open"
   | "webinar_registration_submit"
   | "webinar_registration_success"
+  | "webinar_payment_success"
+  | "webinar_payment_failed"
   | "course_interest_click"
   | "corporate_enquiry_submit"
   | "consultancy_enquiry_submit"
