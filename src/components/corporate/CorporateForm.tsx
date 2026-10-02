@@ -1,5 +1,7 @@
 "use client";
 
+import { companyInfo } from "@/content/company";
+
 import { FormEvent, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -56,7 +58,7 @@ export default function CorporateForm() {
       trackEvent("corporate_enquiry_submit", {});
       form.reset();
     } catch {
-      setServerError("We couldn't reach the server. Please check your connection and try again.");
+      setServerError(`Something went wrong on our side. Please check your connection and try again, or write to us at ${companyInfo.email}.`);
       setStatus("error");
     }
   }
@@ -64,8 +66,8 @@ export default function CorporateForm() {
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-amber-400/30 bg-amber-400/5 p-6 text-center" role="status">
-        <p className="text-lg font-semibold text-white">Thank you.</p>
-        <p className="mt-1 text-sm text-white/70">The Athenix team will reach out to discuss your team&apos;s training.</p>
+        <p className="text-lg font-semibold text-white">Thank you. We&apos;ve got your details.</p>
+        <p className="mt-1 text-sm text-white/70">The Athenix team will contact you to talk through what your team needs to learn.</p>
       </div>
     );
   }
@@ -74,7 +76,7 @@ export default function CorporateForm() {
     <form onSubmit={handleSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
       <input type="text" name="company_website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <F label="Name" name="fullName" error={errors.fullName}>
+      <F label="Your Name" name="fullName" error={errors.fullName}>
         <input id="fullName" name="fullName" required className={inputClass} autoComplete="name" />
       </F>
       <F label="Work Email" name="workEmail" error={errors.workEmail}>
@@ -91,13 +93,13 @@ export default function CorporateForm() {
       </F>
       <F label="Team Size" name="teamSize" error={errors.teamSize}>
         <select id="teamSize" name="teamSize" required defaultValue="" className={inputClass}>
-          <option value="" disabled>Select team size</option>
+          <option value="" disabled>Choose your team size</option>
           {teamSizes.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </F>
       <F label="Preferred Format" name="preferredFormat" error={errors.preferredFormat}>
         <select id="preferredFormat" name="preferredFormat" required defaultValue="" className={inputClass}>
-          <option value="" disabled>Select format</option>
+          <option value="" disabled>Choose a format</option>
           {formats.map((f) => <option key={f} value={f}>{f}</option>)}
         </select>
       </F>
@@ -107,7 +109,7 @@ export default function CorporateForm() {
         </F>
       </div>
       <div className="sm:col-span-2">
-        <F label="Message (optional)" name="message" error={errors.message}>
+        <F label="Anything else we should know? (optional)" name="message" error={errors.message}>
           <textarea id="message" name="message" rows={4} className={inputClass} />
         </F>
       </div>
@@ -119,7 +121,7 @@ export default function CorporateForm() {
         disabled={status === "submitting"}
         className="mt-2 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-6 py-3 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110 disabled:opacity-60 sm:col-span-2"
       >
-        {status === "submitting" ? "Sending…" : "Discuss Corporate Training"}
+        {status === "submitting" ? "Sending…" : "Discuss My Team's Training"}
       </button>
     </form>
   );

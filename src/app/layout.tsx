@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Athenix",
   },
   description:
-    "Athenix helps professionals, learners and businesses turn AI and data into practical skills, smarter workflows and measurable business value. Athenix Learning trains individuals in Data Analytics, Data Science and AI. Athenix Consultancy builds AI automation for businesses.",
+    "Live, hands-on AI and data training for professionals and teams, and practical AI automation for businesses. Athenix Learning teaches Data Analytics, Data Science and applied AI. Athenix Consultancy builds the systems that cut manual work.",
   keywords: [
     "AI training",
     "Data Analytics training",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Athenix",
     title: "Athenix — AI, Data Analytics & Automation Training + Consultancy",
     description:
-      "Build skills. Apply AI. Create impact. Practical AI and data training for individuals, and AI automation consultancy for businesses.",
+      "Build skills. Apply AI. Create impact. Live AI and data training for professionals and teams, and AI automation for businesses.",
     images: ["/images/logo/athenix-logo-wordmark.png"],
   },
   twitter: {

@@ -52,7 +52,7 @@ export default function WebinarModal() {
           Book Your Webinar
         </h2>
         <p className="mt-1 mb-6 text-sm text-white/60">
-          A few details and you&apos;re in — we&apos;ll send the webinar link to your registered contact.
+          It takes about a minute. We&apos;ll send the webinar details to the email and WhatsApp number you share.
         </p>
 
         <RegistrationForm defaultWebinarSlug={selectedWebinarSlug} />

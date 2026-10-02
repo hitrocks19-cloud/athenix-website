@@ -6,7 +6,7 @@ import { testimonialStat } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Testimonials",
-  description: "Learner and corporate testimonials from Athenix training sessions.",
+  description: "Read what learners and corporate teams say about Athenix training sessions.",
 };
 
 export default function TestimonialsPage() {

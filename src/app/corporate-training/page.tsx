@@ -11,7 +11,7 @@ import ClipReveal from "@/components/ui/ClipReveal";
 export const metadata: Metadata = {
   title: "Corporate Training",
   description:
-    "Practical corporate AI and data training — Generative AI, Prompt Engineering, Excel, Power BI and Data Analytics for real teams.",
+    "Corporate AI and data training for real teams: Generative AI, Prompt Engineering, Excel, Power BI, Data Analytics and AI automation.",
 };
 
 export default function CorporateTrainingPage() {
@@ -29,8 +29,8 @@ export default function CorporateTrainingPage() {
         <Container>
           <SectionHeading
             eyebrow="Get Started"
-            title="Discuss Corporate Training"
-            description="Tell us about your team and we'll get back to you with a fit for your goals."
+            title="Tell us what your team needs to learn"
+            description="Share a few details and we will come back with a recommendation that fits your team's roles and goals."
             align="center"
           />
           <div className="mx-auto mt-10 max-w-3xl">

@@ -12,7 +12,7 @@ export default function WebinarsSection() {
           <SectionHeading
             eyebrow="Start Here"
             title="Book a Webinar"
-            description="The easiest way to experience Athenix — live, practical, and low commitment."
+            description="See how we teach before you commit to a program. Live, practical and priced as an easy first step."
             align="center"
           />
         </Reveal>

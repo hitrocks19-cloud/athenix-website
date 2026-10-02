@@ -17,6 +17,7 @@ export default function FinalCTA() {
           <Reveal>
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-glow sm:p-10">
               <h3 className="font-display text-2xl font-semibold text-white">{finalCta.individuals.headline}</h3>
+              <p className="mx-auto mt-3 max-w-sm text-sm text-white/60">{finalCta.individuals.body}</p>
               <button
                 onClick={() => {
                   trackEvent("webinar_cta_click", { source: "final_cta" });
@@ -32,6 +33,7 @@ export default function FinalCTA() {
           <Reveal delay={100}>
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:shadow-glowAmber sm:p-10">
               <h3 className="font-display text-2xl font-semibold text-white">{finalCta.businesses.headline}</h3>
+              <p className="mx-auto mt-3 max-w-sm text-sm text-white/60">{finalCta.businesses.body}</p>
               <ButtonLink href={finalCta.businesses.cta.href} variant="secondary" className="mt-6">
                 {finalCta.businesses.cta.label}
               </ButtonLink>

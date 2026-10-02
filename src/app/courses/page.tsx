@@ -9,7 +9,7 @@ import ClipReveal from "@/components/ui/ClipReveal";
 export const metadata: Metadata = {
   title: "Courses",
   description:
-    "Data Analytics + AI, Data Analytics + SQL + AI, Data Science and the AI Mentorship Program — practical Athenix Learning programs.",
+    "Live courses in Data Analytics, SQL, Data Science and AI, plus the AI Mentorship Program. Practical, trainer-led and built around real work.",
 };
 
 export default function CoursesPage() {
@@ -19,8 +19,8 @@ export default function CoursesPage() {
         <Container>
           <SectionHeading
             eyebrow="Athenix Learning"
-            title="Practical programs, not overloaded courseware"
-            description="Every program is built around real application — analytics, AI tools and business context, taught live."
+            title="Learn AI and data by doing the work"
+            description="Every Athenix program is taught live and built around real analytics tasks, AI tools and business context. Pick a path, or start with a webinar."
           />
         </Container>
       </section>

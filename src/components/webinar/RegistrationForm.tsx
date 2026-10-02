@@ -1,5 +1,7 @@
 "use client";
 
+import { companyInfo } from "@/content/company";
+
 import { FormEvent, useState } from "react";
 import { courseInterestOptions, occupationOptions, webinars } from "@/content/webinars";
 import { trackEvent } from "@/lib/analytics";
@@ -56,7 +58,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
       trackEvent("webinar_registration_success", { webinar: String(payload.webinar) });
       form.reset();
     } catch {
-      setServerError("We couldn't reach the server. Please check your connection and try again.");
+      setServerError(`Something went wrong on our side. Please check your connection and try again, or write to us at ${companyInfo.email}.`);
       setStatus("error");
     }
   }
@@ -64,9 +66,10 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-amber-400/30 bg-amber-400/5 p-6 text-center" role="status">
-        <p className="text-lg font-semibold text-white">You&apos;re registered.</p>
+        <p className="text-lg font-semibold text-white">You&apos;re registered. Thank you!</p>
         <p className="mt-1 text-sm text-white/70">
-          We&apos;ll send the webinar details to your registered contact.
+          We&apos;ll send the joining details to your email and WhatsApp number. If you don&apos;t hear from us, write
+          to {companyInfo.email}.
         </p>
       </div>
     );
@@ -95,12 +98,12 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
         />
       </Field>
 
-      <Field label="Email ID" name="email" error={errors.email}>
-        <input id="email" name="email" type="email" required className={inputClass} autoComplete="email" />
+      <Field label="Email Address" name="email" error={errors.email}>
+        <input id="email" name="email" type="email" required className={inputClass} autoComplete="email" placeholder="you@example.com" />
       </Field>
 
       <Field label="WhatsApp Number" name="whatsapp" error={errors.whatsapp}>
-        <input id="whatsapp" name="whatsapp" type="tel" required className={inputClass} autoComplete="tel" />
+        <input id="whatsapp" name="whatsapp" type="tel" required className={inputClass} autoComplete="tel" placeholder="+91 98765 43210" />
       </Field>
 
       <Field label="Date of Birth" name="dob" error={errors.dob}>
@@ -110,7 +113,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
       <Field label="Occupation" name="occupation" error={errors.occupation}>
         <select id="occupation" name="occupation" required defaultValue="" className={inputClass}>
           <option value="" disabled>
-            Select occupation
+            Choose your occupation
           </option>
           {occupationOptions.map((o) => (
             <option key={o} value={o}>
@@ -120,10 +123,10 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
         </select>
       </Field>
 
-      <Field label="Course Interest" name="courseInterest" error={errors.courseInterest}>
+      <Field label="Which program interests you?" name="courseInterest" error={errors.courseInterest}>
         <select id="courseInterest" name="courseInterest" required defaultValue="" className={inputClass}>
           <option value="" disabled>
-            Select course interest
+            Choose a program
           </option>
           {courseInterestOptions.map((o) => (
             <option key={o} value={o}>
@@ -133,7 +136,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
         </select>
       </Field>
 
-      <Field label="Webinar" name="webinar" error={errors.webinar}>
+      <Field label="Which webinar?" name="webinar" error={errors.webinar}>
         <select
           id="webinar"
           name="webinar"
@@ -142,7 +145,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
           className={inputClass}
         >
           <option value="" disabled>
-            Select webinar
+            Choose a webinar
           </option>
           {webinars.map((w) => (
             <option key={w.slug} value={w.slug}>
@@ -159,7 +162,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
           required
           className="mt-0.5 h-4 w-4 rounded border-white/30 bg-transparent"
         />
-        <span>I agree to be contacted by Athenix about this webinar and related programs.</span>
+        <span>I&apos;m happy for Athenix to contact me about this webinar and related programs.</span>
       </label>
       {errors.consent ? <p className="text-sm text-red-400">{errors.consent}</p> : null}
 
@@ -174,7 +177,7 @@ export default function RegistrationForm({ defaultWebinarSlug }: { defaultWebina
         disabled={status === "submitting"}
         className="mt-2 inline-flex items-center justify-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-6 py-3 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110 disabled:opacity-60"
       >
-        {status === "submitting" ? "Registering…" : "Register"}
+        {status === "submitting" ? "Reserving your spot…" : "Reserve My Spot"}
       </button>
     </form>
   );

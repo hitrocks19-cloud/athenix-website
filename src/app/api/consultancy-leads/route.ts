@@ -5,12 +5,12 @@ import { deliverLead, isRateLimited } from "@/lib/leadDelivery";
 export async function POST(req: NextRequest) {
   const ip = req.headers.get("x-forwarded-for") ?? "unknown";
   if (isRateLimited(`consultancy:${ip}`)) {
-    return NextResponse.json({ message: "Too many submissions. Please try again shortly." }, { status: 429 });
+    return NextResponse.json({ message: "You've sent a few requests in a row. Please wait a moment and try again." }, { status: 429 });
   }
 
   const body = await req.json().catch(() => null);
   if (!body) {
-    return NextResponse.json({ message: "Invalid request." }, { status: 400 });
+    return NextResponse.json({ message: "We couldn't read that request. Please refresh the page and try again." }, { status: 400 });
   }
 
   if (body.company_website) {

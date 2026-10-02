@@ -10,7 +10,7 @@ import CorporateLogoStrip from "@/components/corporate/CorporateLogoStrip";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Athenix exists to create impact through practical, relevant and application-driven AI and data learning.",
+    "Meet Athenix: live, practical AI and data training for professionals and teams, and automation for businesses.",
 };
 
 export default function AboutPage() {

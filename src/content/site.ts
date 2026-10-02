@@ -12,7 +12,7 @@ export const siteStats = {
 // landed at 85%+ across sessions.
 export const testimonialStat = {
   value: "85%+",
-  label: "Average rating across every training session",
+  label: "Learner satisfaction in live session polls",
 };
 
 export const sitePhilosophy = "Create an impact by training, not just provide training.";
@@ -20,35 +20,37 @@ export const sitePhilosophy = "Create an impact by training, not just provide tr
 export const heroCopy = {
   headline: "Build Skills. Apply AI. Create Impact.",
   subhead:
-    "Athenix helps professionals, learners and businesses turn AI and data into practical skills, smarter workflows and measurable business value.",
-  primaryCta: { label: "Explore Learning", href: "/courses" },
+    "Live, hands-on AI and data training for professionals and teams. Practical automation for businesses tired of repetitive work.",
+  primaryCta: { label: "Explore Courses", href: "/courses" },
   secondaryCta: { label: "Book a Webinar", href: "#webinars" },
 };
 
 export const consultancyHeroCopy = {
   headline: "Build Smarter. Automate More. Operate Better.",
   subhead:
-    "Athenix helps businesses use AI, data and automation to reduce repetitive work, improve efficiency and build smarter customer experiences.",
+    "We find the repetitive work slowing your team down, then build the AI, dashboards and automation that take it off their plate.",
   banner: "Your Business Has Repetitive Work. AI Can Change That.",
   points: [
-    "Reduce repetitive work",
+    "Cut repetitive work",
     "Automate workflows",
-    "Make data more useful",
+    "Make your data useful",
     "Improve customer experience",
     "Build intelligent systems",
-    "Increase operational efficiency",
+    "Run more efficiently",
   ],
-  primaryCta: { label: "Get a Free Business Automation Consultation", href: "#consultancy-form" },
-  secondaryCta: { label: "Explore Solutions", href: "#services" },
+  primaryCta: { label: "Get a Free Consultation", href: "#consultancy-form" },
+  secondaryCta: { label: "See What We Build", href: "#services" },
 };
 
 export const finalCta = {
   individuals: {
-    headline: "Ready to build practical AI & data skills?",
+    headline: "Not sure where to start? Start with a webinar.",
+    body: "Join a live, practical session from ₹199 and see how we teach before you commit to anything bigger.",
     cta: { label: "Book a Webinar", href: "#webinars" },
   },
   businesses: {
-    headline: "Ready to make your business more efficient?",
+    headline: "Want your business to run with less manual work?",
+    body: "Tell us what is slowing your team down. We will show you what is worth automating first.",
     cta: { label: "Get a Free Consultation", href: "/consultancy#consultancy-form" },
   },
 };
@@ -56,18 +58,18 @@ export const finalCta = {
 export const whyAthenix = [
   {
     title: "Practical, not theoretical",
-    description: "Every session is built around real work — real files, real tools, real problems.",
+    description: "Every session uses real files, real tools and real business problems, so what you learn is ready to use at work.",
   },
   {
     title: "Trainer-led, not pre-recorded",
-    description: "Learn directly from a trainer who answers every question and adapts to the room.",
+    description: "Learn live from a working trainer who answers your questions as they come up and adjusts to the room.",
   },
   {
-    title: "AI-integrated learning",
-    description: "AI isn't a separate module — it's woven into how analytics and data skills are taught.",
+    title: "AI built into every topic",
+    description: "AI is not a bolt-on module. It is part of how we teach Excel, Power BI and data analytics, so you learn the modern way to work with data.",
   },
   {
-    title: "Proven at corporate scale",
-    description: "Trusted by 50+ corporates to train real teams on real workflows.",
+    title: "Trusted by 50+ corporates",
+    description: "Teams at 50+ companies have trained with us on the workflows they use every day.",
   },
 ];

@@ -1,5 +1,7 @@
 "use client";
 
+import { companyInfo } from "@/content/company";
+
 import { FormEvent, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 
@@ -56,7 +58,7 @@ export default function ConsultancyForm() {
       trackEvent("consultancy_enquiry_submit", {});
       form.reset();
     } catch {
-      setServerError("We couldn't reach the server. Please check your connection and try again.");
+      setServerError(`Something went wrong on our side. Please check your connection and try again, or write to us at ${companyInfo.email}.`);
       setStatus("error");
     }
   }
@@ -64,8 +66,8 @@ export default function ConsultancyForm() {
   if (status === "success") {
     return (
       <div className="rounded-2xl border border-magenta-400/30 bg-magenta-400/5 p-6 text-center" role="status">
-        <p className="text-lg font-semibold text-white">Thank you.</p>
-        <p className="mt-1 text-sm text-white/70">The Athenix Consultancy team will reach out to schedule a conversation.</p>
+        <p className="text-lg font-semibold text-white">Thank you. We&apos;ve got your details.</p>
+        <p className="mt-1 text-sm text-white/70">The Athenix Consultancy team will contact you to schedule a conversation about your business.</p>
       </div>
     );
   }
@@ -74,7 +76,7 @@ export default function ConsultancyForm() {
     <form onSubmit={handleSubmit} noValidate className="grid gap-4 sm:grid-cols-2">
       <input type="text" name="company_website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <F label="Name" name="fullName" error={errors.fullName}>
+      <F label="Your Name" name="fullName" error={errors.fullName}>
         <input id="fullName" name="fullName" required className={inputClass} autoComplete="name" />
       </F>
       <F label="Business Email" name="businessEmail" error={errors.businessEmail}>
@@ -91,13 +93,13 @@ export default function ConsultancyForm() {
       </F>
       <F label="Business Size" name="businessSize" error={errors.businessSize}>
         <select id="businessSize" name="businessSize" required defaultValue="" className={inputClass}>
-          <option value="" disabled>Select business size</option>
+          <option value="" disabled>Choose your business size</option>
           {businessSizes.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </F>
       <F label="Preferred Contact Method" name="preferredContact" error={errors.preferredContact}>
         <select id="preferredContact" name="preferredContact" required defaultValue="" className={inputClass}>
-          <option value="" disabled>Select method</option>
+          <option value="" disabled>Choose a method</option>
           {contactMethods.map((m) => <option key={m} value={m}>{m}</option>)}
         </select>
       </F>
@@ -107,7 +109,7 @@ export default function ConsultancyForm() {
         </F>
       </div>
       <div className="sm:col-span-2">
-        <F label="Current Challenges (optional)" name="currentChallenges" error={errors.currentChallenges}>
+        <F label="What's making this hard today? (optional)" name="currentChallenges" error={errors.currentChallenges}>
           <textarea id="currentChallenges" name="currentChallenges" rows={4} className={inputClass} />
         </F>
       </div>

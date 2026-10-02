@@ -11,7 +11,7 @@ export default function CorporateTraining() {
         <SectionHeading
           eyebrow="For Businesses"
           title="Corporate AI & Data Training"
-          description="Practical, role-relevant training that upskills real teams — not generic slides."
+          description="Training shaped around your team's roles and tools, so people learn what they will actually use, not generic slides."
         />
         <div className="mt-8 flex flex-wrap gap-2">
           {corporateFocusAreas.map((area) => (
@@ -20,10 +20,10 @@ export default function CorporateTraining() {
         </div>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <ButtonLink href="/corporate-training#corporate-form" variant="primary">
-            Get Corporate Training
+            Discuss Corporate Training
           </ButtonLink>
           <ButtonLink href="/corporate-training#corporate-form" variant="secondary">
-            Discuss Your Team&apos;s Requirements
+            Tell Us What Your Team Needs
           </ButtonLink>
         </div>
       </Container>

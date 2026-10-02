@@ -8,7 +8,7 @@ import BookWebinarButton from "@/components/webinar/BookWebinarButton";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Athenix about learning, corporate training or consultancy.",
+  description: "Talk to Athenix about courses, corporate training or AI consultancy. We'll point you to the right next step.",
 };
 
 export default function ContactPage() {

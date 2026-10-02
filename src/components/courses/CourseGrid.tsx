@@ -11,8 +11,8 @@ export default function CourseGrid() {
         <Reveal>
           <SectionHeading
             eyebrow="Athenix Learning"
-            title="Programs built for practical impact"
-            description="Concise, focused programs — not overloaded curriculums."
+            title="Choose your program"
+            description="Four programs, one approach: live teaching, real files and real projects, without overloaded curriculums."
           />
         </Reveal>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

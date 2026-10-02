@@ -8,7 +8,7 @@ export default function WhyAthenix() {
     <section className="py-20 sm:py-28">
       <Container>
         <Reveal>
-          <SectionHeading eyebrow="Why Athenix" title="Learning built for real application" align="center" />
+          <SectionHeading eyebrow="Why Athenix" title="Training that works the way your job does" align="center" />
         </Reveal>
         <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-2">
           {whyAthenix.map((item, i) => (

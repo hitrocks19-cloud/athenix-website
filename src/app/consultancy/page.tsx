@@ -15,7 +15,7 @@ import { consultancyHeroCopy } from "@/content/site";
 export const metadata: Metadata = {
   title: "Athenix Consultancy",
   description:
-    "Athenix Consultancy helps businesses use AI, data and automation to reduce repetitive work, improve efficiency and build smarter customer experiences.",
+    "Athenix Consultancy builds AI, data dashboards and automation that cut repetitive work and help businesses run more efficiently.",
 };
 
 export default function ConsultancyPage() {
@@ -86,7 +86,7 @@ export default function ConsultancyPage() {
 
       <section className="py-20 sm:py-28">
         <Container>
-          <SectionHeading eyebrow="Use Cases" title="Where AI creates leverage" align="center" />
+          <SectionHeading eyebrow="Use Cases" title="Where automation pays off" align="center" />
           <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2">
             {consultancyUseCases.map((useCase) => (
               <span
@@ -105,7 +105,7 @@ export default function ConsultancyPage() {
           <SectionHeading
             eyebrow="Get Started"
             title="Get a Free Business Automation Consultation"
-            description="Tell us what's slowing your team down — we'll follow up to talk through what's possible."
+            description="Tell us what is slowing your team down. We will follow up to talk through what can be automated and where to start."
             align="center"
           />
           <div className="mx-auto mt-10 max-w-3xl">

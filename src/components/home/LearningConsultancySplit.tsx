@@ -17,10 +17,10 @@ export default function LearningConsultancySplit() {
                 Learn AI. Master Data. Build Your Future.
               </h3>
               <p className="mt-3 max-w-md text-sm text-white/60 sm:text-base">
-                Practical Data Analytics, Data Science and applied AI training for individuals and professionals.
+                Live courses in Data Analytics, Data Science and applied AI for professionals who want skills they can use at work.
               </p>
               <ButtonLink href="/courses" variant="secondary" className="relative mt-6">
-                Explore Learning
+                Explore Courses
               </ButtonLink>
             </div>
           </Reveal>
@@ -38,7 +38,7 @@ export default function LearningConsultancySplit() {
                 Automate Work. Unlock Efficiency. Build Smarter.
               </h3>
               <p className="mt-3 max-w-md text-sm text-white/60 sm:text-base">
-                AI, data and automation solutions that help businesses run more efficiently.
+                AI, dashboards and automation built around your workflows, so your team spends less time on manual work.
               </p>
               <ButtonLink href="/consultancy" variant="secondary" className="relative mt-6">
                 Explore Consultancy

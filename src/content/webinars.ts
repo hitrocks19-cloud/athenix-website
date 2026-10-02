@@ -7,11 +7,11 @@ export const webinars: Webinar[] = [
     price: "199",
     priceLabel: "₹199",
     description:
-      "A focused, practical session on getting more out of Excel — built for real work, not theory.",
+      "A live, hands-on Excel session built for real work, not theory. Learn techniques you can use on your own files the same day.",
     bullets: [
-      "Practical Excel techniques you can use immediately",
-      "Live session with Q&A",
-      "Beginner-friendly, professional-focused",
+      "Practical Excel techniques you can apply straight away",
+      "Live Q&A so you can ask what is holding you up",
+      "Beginner-friendly and built for working professionals",
     ],
     ctaLabel: "Register for ₹199",
   },
@@ -21,12 +21,12 @@ export const webinars: Webinar[] = [
     price: "499",
     priceLabel: "₹499",
     description:
-      "A hands-on session on working with Claude effectively for real professional tasks.",
+      "A hands-on session on using Claude for real professional tasks, with workflows you can reuse long after the session ends.",
     bullets: [
-      "Practical, applied Claude workflows",
+      "Practical Claude workflows you can reuse",
       "LinkedIn profile analysis",
       "Claude resource document",
-      "GitHub resources & links",
+      "GitHub resources and links",
     ],
     ctaLabel: "Register for ₹499",
   },

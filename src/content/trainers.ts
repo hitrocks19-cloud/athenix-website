@@ -7,7 +7,7 @@ export const trainers: Trainer[] = [
     name: "Hitesh Purohit",
     role: "Corporate AI, Data Analytics & Business Intelligence Trainer · Founder, Athenix Learning",
     bio:
-      "Hitesh brings 15+ years of business leadership experience to Athenix Learning, training professionals and corporate teams in Advanced Excel, Power Query, Power BI, Generative AI, AI Automation and Agentic AI. His approach favors practical, business-first learning built around real use cases, dashboards and AI-driven workflows over theory — and he has delivered executive AI mentoring and training to senior leadership, including CXOs and academic faculty, at organizations he has worked with.",
+      "Hitesh Purohit brings 15+ years of business leadership experience to Athenix Learning. He trains professionals and corporate teams in Advanced Excel, Power Query, Power BI, Generative AI, AI automation and agentic AI, always starting from real use cases, dashboards and AI-driven workflows rather than theory. He has also delivered executive AI mentoring and training to senior leadership, including CXOs and academic faculty, at organizations he has worked with.",
     expertise: [
       "Advanced Excel",
       "Power BI & Business Intelligence",
