@@ -115,6 +115,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         message: `We couldn't start the payment just now, but we've saved your details. Please try again in a moment, or write to us at ${companyInfo.email}.`,
+        // Cashfree's own wording (e.g. "authentication Failed"). Never contains keys; not shown to visitors,
+        // but lets us diagnose a failing setup without needing server logs.
+        reason: err instanceof Error ? err.message.replace(/^Cashfree request failed: /, "").slice(0, 200) : "unknown",
       },
       { status: 502 }
     );
