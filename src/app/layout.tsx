@@ -84,7 +84,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Skip to content
           </a>
           <Navbar />
-          <main id="main-content">{children}</main>
+          {/* overflow-x-clip: the reveal animations start slightly scaled up and would otherwise add a sideways scroll bar. `clip` (unlike `hidden`) does not create a scroll container, so sticky sections keep working. */}
+          <main id="main-content" className="overflow-x-clip">{children}</main>
           <Footer />
           <WebinarModal />
           <FloatingWebinarCTA />

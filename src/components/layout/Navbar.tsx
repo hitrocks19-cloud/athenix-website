@@ -24,12 +24,12 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-ink-950/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3 sm:px-8">
-        <Link href="/" className="flex items-center gap-2" aria-label="Athenix home">
+        <Link href="/" className="mr-6 flex shrink-0 items-center gap-2 whitespace-nowrap" aria-label="Athenix home">
           <SmartImage asset={images.logoMark} className="h-8 w-8 rounded" width={32} height={32} />
           <span className="font-display text-lg font-semibold tracking-wide text-white">ATHENIX</span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 whitespace-nowrap 2xl:gap-7 xl:flex" aria-label="Primary">
           {primaryNav.map((link) => (
             <Link
               key={link.href}
@@ -51,17 +51,17 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="ml-6 hidden shrink-0 items-center gap-3 xl:flex">
           <ThemeToggle />
           <button
             onClick={handleBookWebinar}
-            className="inline-flex items-center rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-2.5 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
+            className="inline-flex items-center whitespace-nowrap rounded-full bg-athenix-line-animated bg-[length:200%_200%] animate-gradientShift px-5 py-2.5 text-sm font-semibold text-snow shadow-glow transition hover:-translate-y-0.5 hover:shadow-glowAmber hover:brightness-110"
           >
             {bookWebinarLabel}
           </button>
         </div>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <ThemeToggle />
           <button
             className="flex items-center justify-center rounded-md p-2 text-white"
@@ -81,7 +81,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen ? (
-        <div className="border-t border-white/10 bg-ink-950 px-5 pb-6 pt-2 lg:hidden">
+        <div className="border-t border-white/10 bg-ink-950 px-5 pb-6 pt-2 xl:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {[...primaryNav, consultancyNav].map((link) => (
               <Link
