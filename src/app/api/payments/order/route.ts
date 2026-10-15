@@ -118,6 +118,7 @@ export async function POST(req: NextRequest) {
         // Cashfree's own wording (e.g. "authentication Failed"). Never contains keys; not shown to visitors,
         // but lets us diagnose a failing setup without needing server logs.
         reason: err instanceof Error ? err.message.replace(/^Cashfree request failed: /, "").slice(0, 200) : "unknown",
+        mode: cashfreeMode(),
       },
       { status: 502 }
     );

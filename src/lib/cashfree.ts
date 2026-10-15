@@ -13,11 +13,23 @@ import crypto from "node:crypto";
  */
 const API_VERSION = process.env.CASHFREE_API_VERSION ?? "2025-01-01";
 
-const appId = () => process.env.CASHFREE_APP_ID ?? "";
-const secretKey = () => process.env.CASHFREE_SECRET_KEY ?? "";
+const appId = () => (process.env.CASHFREE_APP_ID ?? "").trim();
+const secretKey = () => (process.env.CASHFREE_SECRET_KEY ?? "").trim();
 
-export const cashfreeMode = (): "sandbox" | "production" =>
-  process.env.CASHFREE_ENV === "production" ? "production" : "sandbox";
+/**
+ * Which Cashfree environment the keys belong to. Detected from the keys
+ * themselves so a wrong CASHFREE_ENV can never cause "authentication Failed":
+ * Cashfree test App IDs start with "TEST" and test secrets contain "_test_";
+ * live secrets contain "_prod_". CASHFREE_ENV is only the fallback when the
+ * keys give no hint.
+ */
+export const cashfreeMode = (): "sandbox" | "production" => {
+  const id = appId().trim();
+  const secret = secretKey().trim();
+  if (/^TEST/i.test(id) || /_test_/i.test(secret)) return "sandbox";
+  if (/_prod_/i.test(secret)) return "production";
+  return process.env.CASHFREE_ENV?.trim().toLowerCase() === "production" ? "production" : "sandbox";
+};
 
 const apiBase = () =>
   process.env.CASHFREE_API_BASE ??
