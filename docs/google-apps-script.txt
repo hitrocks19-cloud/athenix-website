@@ -8,11 +8,13 @@
  *        Execute as: Me      Who has access: Anyone
  *   4. Copy the Web app URL into the website's environment variables.
  *
- * Use this SAME file in both sheets (Training and Consultancy). It creates
- * the tabs and header rows itself, so you start with completely empty sheets.
+ * One workbook holds all four forms. The script creates the tabs and header
+ * rows itself, so you start with a completely empty spreadsheet.
  *
- *   Training sheet     ->  tabs "Webinar Registrations" + "Corporate Training Leads" + "Enquiries"
- *   Consultancy sheet  ->  tab  "Consultancy Leads"
+ *   Enquiries                 <-  the enquiry pop-up
+ *   Webinar Registrations     <-  webinar sign-ups (Payment pending / Paid / ...)
+ *   Corporate Training Leads  <-  corporate training form
+ *   Consultancy Leads         <-  consultancy form
  */
 
 var TZ = "Asia/Kolkata";

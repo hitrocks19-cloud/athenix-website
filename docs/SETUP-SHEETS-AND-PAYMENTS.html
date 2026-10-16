@@ -54,19 +54,19 @@
 <table>
   <tr><th>Visitor does</th><th>What happens</th></tr>
   <tr><td>Clicks <b>Explore Program</b> on a course, or <b>Book a Webinar</b></td><td>The sign-up form opens. Data Analytics, SQL and Data Science preselect <b>Mastery in Excel + AI (₹199)</b>. AI Mentorship preselects <b>Mastery in Claude (₹499)</b>.</td></tr>
-  <tr><td>Presses <b>Pay ₹199 &amp; Register</b></td><td>Their details are saved to the <b>Training sheet</b> as <b>Payment pending</b>, then the Cashfree payment pop-up opens.</td></tr>
+  <tr><td>Presses <b>Pay ₹199 &amp; Register</b></td><td>Their details are saved to the tab <b>Webinar Registrations</b> as <b>Payment pending</b>, then the Cashfree payment pop-up opens.</td></tr>
   <tr><td>Pays successfully</td><td>The row changes to <b>Paid</b>, with the Cashfree payment ID and the amount.</td></tr>
   <tr><td>Closes the pop-up without paying</td><td>The row stays <b>Payment pending</b>. This is a warm lead you can follow up.</td></tr>
-  <tr><td>Fills the enquiry pop-up (home / courses page)</td><td>A row in the Training sheet, tab <b>Enquiries</b>.</td></tr>
-  <tr><td>Fills the Corporate Training form</td><td>A row in the Training sheet, tab <b>Corporate Training Leads</b>.</td></tr>
-  <tr><td>Fills the Consultancy form</td><td>A row in the <b>Consultancy sheet</b>.</td></tr>
+  <tr><td>Fills the enquiry pop-up (home / courses page)</td><td>A row in the tab <b>Enquiries</b>.</td></tr>
+  <tr><td>Fills the Corporate Training form</td><td>A row in the tab <b>Corporate Training Leads</b>.</td></tr>
+  <tr><td>Fills the Consultancy form</td><td>A row in the tab <b>Consultancy Leads</b>.</td></tr>
 </table>
 <div class="note">Until Cashfree is connected, webinar sign-ups are still saved, with the status <b>Registered (payment not collected)</b>, and nobody is charged. Connect Cashfree before you promote the webinars, or people can register for free.</div>
 
-<h2 id="p1">Part 1: Google Sheets <span style="font-weight:400;color:var(--muted);font-size:16px">(about 10 minutes, once for each sheet)</span></h2>
-<p>Do these steps <b>twice</b>: once for a sheet called <b>Athenix Training</b>, once for <b>Athenix Consultancy</b>.</p>
+<h2 id="p1">Part 1: Google Sheets <span style="font-weight:400;color:var(--muted);font-size:16px">(about 10 minutes, once)</span></h2>
+<p>One workbook holds all four forms, each on its own tab. Do these steps <b>once</b>.</p>
 <ol>
-  <li>Go to <a href="https://sheets.google.com" target="_blank" rel="noopener">sheets.google.com</a> and create a new <b>blank</b> spreadsheet. Name it. Leave it empty; the script makes the tabs and headings itself.</li>
+  <li>Go to <a href="https://sheets.google.com" target="_blank" rel="noopener">sheets.google.com</a> and create a new <b>blank</b> spreadsheet. Name it <b>Athenix Leads</b>. Leave it empty; the script makes the tabs and headings itself.</li>
   <li>In the sheet, click <b>Extensions → Apps Script</b>.</li>
   <li>Delete everything in the editor. Then paste the script below: press the purple <b>Copy script</b> button, click in the editor, press <b>Ctrl+V</b>, and click the <b>Save</b> icon.</li>
   <li><b>(Recommended) Add a password</b> so nobody else can post to your sheet:
@@ -74,7 +74,7 @@
       <li>In Apps Script, click the <b>gear icon (Project Settings)</b> on the left.</li>
       <li>Under <b>Script Properties</b>, click <b>Add script property</b>.</li>
       <li>Property: <code>WEBHOOK_SECRET</code>. Value: any long random text (for example 30 random letters and digits). Save.</li>
-      <li>Use the <b>same value in both sheets</b>. You will paste it into Vercel in Part 3.</li>
+      <li>You will paste the same value into Vercel in Part 3.</li>
     </ul>
   </li>
   <li>Click <b>Deploy → New deployment</b>. Click the gear next to "Select type" and choose <b>Web app</b>.
@@ -87,10 +87,10 @@
   <li>Copy the <b>Web app URL</b> (it ends in <code>/exec</code>).</li>
   <li>Open that URL in a new browser tab. You should see: <code>{"ok":true,"message":"Athenix lead intake is running."}</code></li>
 </ol>
-<p>You now have two URLs: one from the Training sheet, one from the Consultancy sheet.</p>
+<p>You now have one URL. After the first lead arrives, the tabs <b>Enquiries</b>, <b>Webinar Registrations</b>, <b>Corporate Training Leads</b> and <b>Consultancy Leads</b> appear by themselves (each is created when its first lead comes in). You can delete the empty default tab <b>Sheet1</b>.</p>
 <div class="note">If you ever change the script code, use <b>Deploy → Manage deployments → pencil icon → Version: New version → Deploy</b>. The URL stays the same.</div>
 
-<h3>The script to paste (same script for both sheets)</h3>
+<h3>The script to paste</h3>
 <div class="codewrap">
   <button class="copy" id="copybtn" type="button">Copy script</button>
   <pre id="script">/**
@@ -103,11 +103,13 @@
  *        Execute as: Me      Who has access: Anyone
  *   4. Copy the Web app URL into the website's environment variables.
  *
- * Use this SAME file in both sheets (Training and Consultancy). It creates
- * the tabs and header rows itself, so you start with completely empty sheets.
+ * One workbook holds all four forms. The script creates the tabs and header
+ * rows itself, so you start with a completely empty spreadsheet.
  *
- *   Training sheet     -&gt;  tabs "Webinar Registrations" + "Corporate Training Leads" + "Enquiries"
- *   Consultancy sheet  -&gt;  tab  "Consultancy Leads"
+ *   Enquiries                 &lt;-  the enquiry pop-up
+ *   Webinar Registrations     &lt;-  webinar sign-ups (Payment pending / Paid / ...)
+ *   Corporate Training Leads  &lt;-  corporate training form
+ *   Consultancy Leads         &lt;-  consultancy form
  */
 
 var TZ = "Asia/Kolkata";
@@ -265,8 +267,8 @@ function json(obj) {
 <p>In Vercel open your project, then <b>Settings → Environment Variables</b>, and add these for <b>Production</b> (and Preview if you want to test there):</p>
 <table>
   <tr><th>Name</th><th>Value</th></tr>
-  <tr><td><code>GOOGLE_SHEETS_TRAINING_WEBHOOK_URL</code></td><td>Web app URL of the <b>Training</b> sheet</td></tr>
-  <tr><td><code>GOOGLE_SHEETS_CONSULTANCY_WEBHOOK_URL</code></td><td>Web app URL of the <b>Consultancy</b> sheet</td></tr>
+  <tr><td><code>GOOGLE_SHEETS_TRAINING_WEBHOOK_URL</code></td><td>The Web app URL from Part 1</td></tr>
+  <tr><td><code>GOOGLE_SHEETS_CONSULTANCY_WEBHOOK_URL</code></td><td>The <b>same</b> Web app URL again (both names get the same value)</td></tr>
   <tr><td><code>GOOGLE_SHEETS_WEBHOOK_SECRET</code></td><td>The <code>WEBHOOK_SECRET</code> you chose in Part 1 (skip if you skipped it)</td></tr>
   <tr><td><code>CASHFREE_APP_ID</code></td><td>Cashfree <b>App ID</b></td></tr>
   <tr><td><code>CASHFREE_SECRET_KEY</code></td><td>Cashfree <b>Secret Key</b>. Never share this, and never put it in the website code or in chat.</td></tr>
@@ -279,7 +281,7 @@ function json(obj) {
 <ol>
   <li>Open the live site, click <b>Book a Webinar</b>, fill the form with your own details, and press <b>Pay ₹199 &amp; Register</b>.</li>
   <li>Cashfree's test checkout opens. Use the test card or test UPI details from Cashfree's <a href="https://www.cashfree.com/docs/payments/online/resources/sandbox-environment" target="_blank" rel="noopener">sandbox testing page</a>.</li>
-  <li>After paying, check the <b>Training sheet</b>, tab <b>Webinar Registrations</b>: your row should say <b>Paid</b>, with a payment ID that also appears in the Cashfree dashboard under Transactions.</li>
+  <li>After paying, check the tab <b>Webinar Registrations</b>: your row should say <b>Paid</b>, with a payment ID that also appears in the Cashfree dashboard under Transactions.</li>
   <li>Try again but <b>close the pop-up</b>. A second row should appear as <b>Payment pending</b>.</li>
   <li>Submit the <b>Consultancy</b> form and the <b>Corporate Training</b> form; check they land in the right sheets.</li>
   <li>Switch to live keys (<code>CASHFREE_ENV=production</code>) only when all of this works.</li>
