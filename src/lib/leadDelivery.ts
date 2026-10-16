@@ -1,4 +1,4 @@
-export type FormType = "webinar" | "corporate-training" | "consultancy";
+export type FormType = "webinar" | "corporate-training" | "consultancy" | "enquiry";
 
 export type LeadPayload = {
   formType: FormType;

@@ -58,3 +58,18 @@ export const consultancySchema = z.object({
 });
 
 export type ConsultancyLead = z.infer<typeof consultancySchema>;
+
+export const enquirySchema = z.object({
+  fullName: name,
+  whatsapp,
+  email,
+  interest: required("Please choose what you're interested in."),
+  consent: z.literal(true, {
+    errorMap: () => ({ message: "Please tick the box so we can contact you about your enquiry." }),
+  }),
+  /** which page the pop-up was shown on */
+  page: z.string().trim().max(100).optional().or(z.literal("")),
+  company_website: z.string().max(0).optional().or(z.literal("")),
+});
+
+export type EnquiryLead = z.infer<typeof enquirySchema>;

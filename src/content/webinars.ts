@@ -66,3 +66,14 @@ export const courseWebinarMap: Record<string, string> = {
 };
 
 export const getWebinarBySlug = (slug: string | null | undefined) => webinars.find((w) => w.slug === slug);
+
+/** "Interested in" choices on the enquiry pop-up. Corporate / Consultancy leads are sorted out in the sheet. */
+export const enquiryInterestOptions = [
+  "Data Analytics + AI",
+  "Data Analytics + SQL + AI",
+  "Data Science",
+  "AI Mentorship",
+  "Corporate Training",
+  "Consultancy",
+  "Not sure",
+];

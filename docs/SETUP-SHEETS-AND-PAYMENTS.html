@@ -57,6 +57,7 @@
   <tr><td>Presses <b>Pay ₹199 &amp; Register</b></td><td>Their details are saved to the <b>Training sheet</b> as <b>Payment pending</b>, then the Cashfree payment pop-up opens.</td></tr>
   <tr><td>Pays successfully</td><td>The row changes to <b>Paid</b>, with the Cashfree payment ID and the amount.</td></tr>
   <tr><td>Closes the pop-up without paying</td><td>The row stays <b>Payment pending</b>. This is a warm lead you can follow up.</td></tr>
+  <tr><td>Fills the enquiry pop-up (home / courses page)</td><td>A row in the Training sheet, tab <b>Enquiries</b>.</td></tr>
   <tr><td>Fills the Corporate Training form</td><td>A row in the Training sheet, tab <b>Corporate Training Leads</b>.</td></tr>
   <tr><td>Fills the Consultancy form</td><td>A row in the <b>Consultancy sheet</b>.</td></tr>
 </table>
@@ -105,7 +106,7 @@
  * Use this SAME file in both sheets (Training and Consultancy). It creates
  * the tabs and header rows itself, so you start with completely empty sheets.
  *
- *   Training sheet     -&gt;  tabs "Webinar Registrations" + "Corporate Training Leads"
+ *   Training sheet     -&gt;  tabs "Webinar Registrations" + "Corporate Training Leads" + "Enquiries"
  *   Consultancy sheet  -&gt;  tab  "Consultancy Leads"
  */
 
@@ -124,6 +125,13 @@ var SHEETS = {
         d.courseInterest, d.webinarTitle || d.webinar, p.amount, p.orderId, p.paymentId, fmt(p.paidAt),
         d.consent === true ? "Yes" : d.consent === false ? "No" : ""
       ];
+    }
+  },
+  "enquiry": {
+    name: "Enquiries",
+    headers: ["Submitted At", "Name", "WhatsApp", "Email", "Interested In", "Page", "Consent"],
+    row: function (p, d) {
+      return [fmt(p.submittedAt), d.fullName, d.whatsapp, d.email, d.interest, d.page, d.consent === true ? "Yes" : ""];
     }
   },
   "corporate-training": {

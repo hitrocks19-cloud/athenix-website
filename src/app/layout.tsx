@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { WebinarModalProvider } from "@/components/webinar/WebinarModalContext";
 import WebinarModal from "@/components/webinar/WebinarModal";
 import FloatingWebinarCTA from "@/components/webinar/FloatingWebinarCTA";
+import EnquiryPopup from "@/components/enquiry/EnquiryPopup";
 import { companyInfo } from "@/content/company";
 import { siteUrl } from "@/lib/site";
 import { isCashfreeConfigured } from "@/lib/cashfree";
@@ -89,6 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <WebinarModal />
           <FloatingWebinarCTA />
+          <EnquiryPopup />
         </WebinarModalProvider>
       </body>
     </html>

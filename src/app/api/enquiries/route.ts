@@ -1,0 +1,53 @@
+import { NextRequest, NextResponse } from "next/server";
+import { enquirySchema } from "@/lib/validation";
+import { deliverLead, isLeadSaved, isRateLimited } from "@/lib/leadDelivery";
+import { companyInfo } from "@/content/company";
+
+/** Quick enquiry from the pop-up: name, WhatsApp, email and what they're interested in. */
+export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for") ?? "unknown";
+  if (isRateLimited(`enquiry:${ip}`)) {
+    return NextResponse.json(
+      { message: "You've sent a few requests in a row. Please wait a moment and try again." },
+      { status: 429 }
+    );
+  }
+
+  const body = await req.json().catch(() => null);
+  if (!body) {
+    return NextResponse.json(
+      { message: "We couldn't read that request. Please refresh the page and try again." },
+      { status: 400 }
+    );
+  }
+
+  // Honeypot: a filled hidden field means a bot. Pretend success, record nothing.
+  if (body.company_website) {
+    return NextResponse.json({ message: "Success" }, { status: 200 });
+  }
+
+  const parsed = enquirySchema.safeParse(body);
+  if (!parsed.success) {
+    const fieldErrors: Record<string, string> = {};
+    for (const issue of parsed.error.issues) {
+      const key = issue.path[0];
+      if (typeof key === "string" && !fieldErrors[key]) fieldErrors[key] = issue.message;
+    }
+    return NextResponse.json({ message: "Please check the highlighted fields.", fieldErrors }, { status: 400 });
+  }
+
+  const result = await deliverLead({
+    formType: "enquiry",
+    submittedAt: new Date().toISOString(),
+    data: parsed.data,
+  });
+
+  if (!isLeadSaved(result)) {
+    return NextResponse.json(
+      { message: `We couldn't save your details just now. Please try again, or write to us at ${companyInfo.email}.` },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({ message: "Success" }, { status: 200 });
+}

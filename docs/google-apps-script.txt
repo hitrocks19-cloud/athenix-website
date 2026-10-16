@@ -11,7 +11,7 @@
  * Use this SAME file in both sheets (Training and Consultancy). It creates
  * the tabs and header rows itself, so you start with completely empty sheets.
  *
- *   Training sheet     ->  tabs "Webinar Registrations" + "Corporate Training Leads"
+ *   Training sheet     ->  tabs "Webinar Registrations" + "Corporate Training Leads" + "Enquiries"
  *   Consultancy sheet  ->  tab  "Consultancy Leads"
  */
 
@@ -30,6 +30,13 @@ var SHEETS = {
         d.courseInterest, d.webinarTitle || d.webinar, p.amount, p.orderId, p.paymentId, fmt(p.paidAt),
         d.consent === true ? "Yes" : d.consent === false ? "No" : ""
       ];
+    }
+  },
+  "enquiry": {
+    name: "Enquiries",
+    headers: ["Submitted At", "Name", "WhatsApp", "Email", "Interested In", "Page", "Consent"],
+    row: function (p, d) {
+      return [fmt(p.submittedAt), d.fullName, d.whatsapp, d.email, d.interest, d.page, d.consent === true ? "Yes" : ""];
     }
   },
   "corporate-training": {

@@ -16,6 +16,10 @@ export type AnalyticsEvent =
   | "course_interest_click"
   | "corporate_enquiry_submit"
   | "consultancy_enquiry_submit"
+  | "enquiry_popup_shown"
+  | "enquiry_popup_closed"
+  | "enquiry_submit"
+  | "enquiry_success"
   | "form_validation_error";
 
 declare global {
