@@ -11,31 +11,14 @@ import { useWebinarModal } from "@/components/webinar/WebinarModalContext";
 /** Only these pages show the pop-up (not forms, payment or legal pages). */
 const SHOW_ON = ["/", "/courses"];
 const DELAY_MS = 8000;
-const SNOOZE_DAYS = 7;
-const DISMISSED_KEY = "athenix-enquiry-dismissed-at";
-const SUBMITTED_KEY = "athenix-enquiry-submitted";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-function readNumber(key: string): number {
-  try {
-    return Number(localStorage.getItem(key)) || 0;
-  } catch {
-    return 0; // private mode / blocked storage: behave as if never shown
-  }
-}
-function writeNumber(key: string, value: number) {
-  try {
-    localStorage.setItem(key, String(value));
-  } catch {
-    /* storage unavailable: the pop-up simply may reappear next visit */
-  }
-}
-
 /**
- * Lead-capture pop-up: appears 8 seconds after someone lands on the home or
- * courses page, then stays away for 7 days once closed, and for good once they
- * have sent their details. Never shown while the webinar sign-up is open.
+ * Lead-capture pop-up: appears 8 seconds after someone opens the home or courses
+ * page, on every visit, even for the same browser. Within one visit it shows
+ * only once (not again after being closed or submitted). Never shown while the
+ * webinar sign-up is open.
  */
 export default function EnquiryPopup() {
   const pathname = usePathname();
@@ -48,6 +31,8 @@ export default function EnquiryPopup() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  // True once the pop-up has been shown in this visit (a fresh page load resets it).
+  const shownThisVisit = useRef(false);
 
   // Schedule it when someone lands on an eligible page.
   useEffect(() => {
@@ -55,12 +40,11 @@ export default function EnquiryPopup() {
       setOpen(false);
       return;
     }
-    if (readNumber(SUBMITTED_KEY)) return;
-    const dismissedAt = readNumber(DISMISSED_KEY);
-    if (dismissedAt && Date.now() - dismissedAt < SNOOZE_DAYS * 24 * 60 * 60 * 1000) return;
+    if (shownThisVisit.current) return;
 
     const timer = window.setTimeout(() => {
       if (webinarOpenRef.current) return; // don't interrupt a sign-up in progress
+      shownThisVisit.current = true;
       setStatus("idle");
       setErrors({});
       setServerError(null);
@@ -78,7 +62,6 @@ export default function EnquiryPopup() {
   const close = useCallback(() => {
     setOpen(false);
     if (status !== "success") {
-      writeNumber(DISMISSED_KEY, Date.now());
       trackEvent("enquiry_popup_closed", { page: pathname });
     }
   }, [status, pathname]);
@@ -134,7 +117,6 @@ export default function EnquiryPopup() {
         setStatus("error");
         return;
       }
-      writeNumber(SUBMITTED_KEY, Date.now());
       trackEvent("enquiry_success", { interest: String(payload.interest ?? "") });
       setStatus("success");
     } catch {
