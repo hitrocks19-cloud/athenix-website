@@ -5,6 +5,7 @@ import LegalContent from "@/components/ui/LegalContent";
 import { termsSections } from "@/content/legal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/terms" },
   title: "Terms & Conditions",
   description: "Terms and conditions governing the use of Athenix Learning's services.",
 };

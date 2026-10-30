@@ -9,15 +9,16 @@ import CorporateForm from "@/components/corporate/CorporateForm";
 import ClipReveal from "@/components/ui/ClipReveal";
 
 export const metadata: Metadata = {
-  title: "Corporate Training",
+  title: "Corporate AI & Data Training for Teams",
   description:
-    "Corporate AI and data training for real teams: Generative AI, Prompt Engineering, Excel, Power BI, Data Analytics and AI automation.",
+    "Corporate AI and data training for real teams: Generative AI, Prompt Engineering, Excel, Power BI, Data Analytics and AI automation. Trusted by 50+ corporates.",
+  alternates: { canonical: "/corporate-training" },
 };
 
 export default function CorporateTrainingPage() {
   return (
     <>
-      <CorporateTraining />
+      <CorporateTraining headingLevel="h1" />
       <Container className="pb-16">
         <ClipReveal shape="circle">
           <CinematicVideo videoKey="corporateTraining" allowUnmute />

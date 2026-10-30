@@ -4,6 +4,7 @@ import LegalContent from "@/components/ui/LegalContent";
 import { refundPolicySections } from "@/content/legal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/refund-policy" },
   title: "Refund & Cancellation Policy",
   description: "Athenix Learning's refund and cancellation policy for courses, webinars, and training programs.",
 };

@@ -13,9 +13,10 @@ import { consultancyServices, consultancyUseCases } from "@/content/services";
 import { consultancyHeroCopy } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Athenix Consultancy",
+  title: "AI Automation & Data Dashboard Consultancy",
   description:
-    "Athenix Consultancy builds AI, data dashboards and automation that cut repetitive work and help businesses run more efficiently.",
+    "Athenix Consultancy builds AI assistants, data dashboards and workflow automation that cut repetitive work and help businesses run more efficiently.",
+  alternates: { canonical: "/consultancy" },
 };
 
 export default function ConsultancyPage() {

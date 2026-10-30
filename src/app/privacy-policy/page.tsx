@@ -4,6 +4,7 @@ import LegalContent from "@/components/ui/LegalContent";
 import { privacyPolicySections } from "@/content/legal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/privacy-policy" },
   title: "Privacy Policy",
   description: "How Athenix Learning collects, uses, and protects your personal information.",
 };

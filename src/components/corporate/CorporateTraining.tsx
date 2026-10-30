@@ -4,11 +4,12 @@ import Badge from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { corporateFocusAreas } from "@/content/corporate";
 
-export default function CorporateTraining() {
+export default function CorporateTraining({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
   return (
     <section id="corporate-training" className="py-20 sm:py-28">
       <Container>
         <SectionHeading
+          as={headingLevel}
           eyebrow="For Businesses"
           title="Corporate AI & Data Training"
           description="Training shaped around your team's roles and tools, so people learn what they will actually use, not generic slides."

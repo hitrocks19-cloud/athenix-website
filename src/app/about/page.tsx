@@ -8,9 +8,10 @@ import TrainerProfile from "@/components/trainers/TrainerProfile";
 import CorporateLogoStrip from "@/components/corporate/CorporateLogoStrip";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Athenix Learning & Consultancy",
   description:
-    "Meet Athenix: live, practical AI and data training for professionals and teams, and automation for businesses.",
+    "Meet Athenix: live, practical AI and data training for professionals and teams, and AI automation for businesses. Based in Thane, India.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
@@ -19,7 +20,7 @@ export default function AboutPage() {
       <section className="relative overflow-hidden bg-ink-950 py-20 sm:py-28">
         <div className="pointer-events-none absolute inset-0 bg-athenix-glow" />
         <Container className="relative">
-          <SectionHeading eyebrow="About Athenix" title="Create an impact by training" align="center" />
+          <SectionHeading as="h1" eyebrow="About Athenix" title="Create an impact by training" align="center" />
           <p className="mx-auto mt-6 max-w-2xl text-center text-lg italic text-white/70">&ldquo;{sitePhilosophy}&rdquo;</p>
 
           <div className="mx-auto mt-10 grid max-w-3xl grid-cols-3 gap-6 text-center">

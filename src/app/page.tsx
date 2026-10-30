@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import Hero from "@/components/home/Hero";
 import CinematicVideo from "@/components/home/CinematicVideo";
@@ -16,6 +17,13 @@ import ConsultancyTeaser from "@/components/home/ConsultancyTeaser";
 import FinalCTA from "@/components/home/FinalCTA";
 import ManifestoSection from "@/components/home/ManifestoSection";
 import ClipReveal from "@/components/ui/ClipReveal";
+
+export const metadata: Metadata = {
+  title: { absolute: "Athenix Learning | AI & Data Analytics Training and AI Consultancy" },
+  description:
+    "Live, hands-on AI and data analytics training for professionals and teams, plus AI automation consultancy for businesses. Based in Thane, India.",
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (

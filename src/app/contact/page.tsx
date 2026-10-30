@@ -1,22 +1,27 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import SectionHeading from "@/components/ui/SectionHeading";
+import JsonLd from "@/components/JsonLd";
+import { faqJsonLd } from "@/lib/seo";
 import { ButtonLink } from "@/components/ui/Button";
 import { faqs } from "@/content/faqs";
 import { companyInfo } from "@/content/company";
 import BookWebinarButton from "@/components/webinar/BookWebinarButton";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: "Talk to Athenix about courses, corporate training or AI consultancy. We'll point you to the right next step.",
+  title: "Contact Us: Courses, Corporate Training & AI Consultancy",
+  description: "Talk to Athenix about courses, corporate training or AI consultancy. Based in Thane, Maharashtra. We'll point you to the right next step.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={faqJsonLd()} />
       <section className="py-20 sm:py-28">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Contact"
             title="Let's talk"
             description="Tell us what you're looking for and we'll point you to the right next step."

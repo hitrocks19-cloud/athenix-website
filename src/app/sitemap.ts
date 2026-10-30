@@ -1,26 +1,27 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site";
 
-const siteUrl = "https://www.athenixlearning.com";
-
-const routes = [
-  "",
-  "/about",
-  "/courses",
-  "/trainers",
-  "/testimonials",
-  "/corporate-training",
-  "/consultancy",
-  "/contact",
-  "/privacy-policy",
-  "/terms",
-  "/refund-policy",
+// [path, priority]. Money pages first; legal pages matter least.
+const routes: [string, number][] = [
+  ["", 1],
+  ["/courses", 0.9],
+  ["/corporate-training", 0.9],
+  ["/consultancy", 0.9],
+  ["/about", 0.7],
+  ["/trainers", 0.7],
+  ["/testimonials", 0.6],
+  ["/contact", 0.6],
+  ["/privacy-policy", 0.2],
+  ["/terms", 0.2],
+  ["/refund-policy", 0.2],
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  const lastModified = new Date();
+  return routes.map(([route, priority]) => ({
     url: `${siteUrl}${route}`,
-    lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: route === "" ? 1 : 0.7,
+    lastModified,
+    changeFrequency: route === "" ? "weekly" : "monthly",
+    priority,
   }));
 }

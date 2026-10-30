@@ -5,8 +5,9 @@ import TestimonialGallery from "@/components/testimonials/TestimonialGallery";
 import { testimonialStat } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Testimonials",
-  description: "Read what learners and corporate teams say about Athenix training sessions.",
+  title: "Reviews & Testimonials from Learners and Teams",
+  description: "Read what learners and corporate teams say about Athenix training sessions, including live poll results and learner feedback.",
+  alternates: { canonical: "/testimonials" },
 };
 
 export default function TestimonialsPage() {
@@ -18,7 +19,7 @@ export default function TestimonialsPage() {
             <span className="text-base">⭐</span>
             {testimonialStat.value} <span className="font-normal text-white/70">{testimonialStat.label}</span>
           </span>
-          <SectionHeading eyebrow="Testimonials" title="What learners and teams say" align="center" />
+          <SectionHeading as="h1" eyebrow="Testimonials" title="What learners and teams say" align="center" />
         </div>
         <div className="mt-12">
           <TestimonialGallery />

@@ -10,6 +10,8 @@ import EnquiryPopup from "@/components/enquiry/EnquiryPopup";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { companyInfo } from "@/content/company";
 import { siteUrl } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { isCashfreeConfigured } from "@/lib/cashfree";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
@@ -40,28 +42,17 @@ export const metadata: Metadata = {
     type: "website",
     url: siteUrl,
     siteName: "Athenix",
+    locale: "en_IN",
     title: "Athenix — AI, Data Analytics & Automation Training + Consultancy",
     description:
       "Build skills. Apply AI. Create impact. Live AI and data training for professionals and teams, and AI automation for businesses.",
-    images: ["/images/logo/athenix-logo-wordmark.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Athenix — AI, Data Analytics & Automation Training + Consultancy",
     description: "Build skills. Apply AI. Create impact.",
   },
-  alternates: { canonical: siteUrl },
   robots: { index: true, follow: true },
-};
-
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Athenix",
-  url: siteUrl,
-  description:
-    "Athenix Learning trains individuals and professionals in Data Analytics, Data Science and AI. Athenix Consultancy builds AI and automation solutions for businesses.",
-  sameAs: [companyInfo.social.linkedinCompany, companyInfo.social.trustpilot],
 };
 
 // Runs before first paint so a returning visitor never sees a flash of the wrong theme.
@@ -75,10 +66,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen font-sans antialiased">
         <GoogleAnalytics />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
         <WebinarModalProvider paymentsEnabled={isCashfreeConfigured()}>
           <a
             href="#main-content"
