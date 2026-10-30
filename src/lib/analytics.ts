@@ -25,11 +25,32 @@ export type AnalyticsEvent =
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    gtag?: (command: "event", name: string, params?: Record<string, unknown>) => void;
   }
 }
 
 export function trackEvent(event: AnalyticsEvent, properties: Record<string, string | number | boolean> = {}) {
   if (typeof window === "undefined") return;
+  // GA4 (when switched on) gets the event directly; otherwise it stays on the dataLayer for any other tool.
+  if (typeof window.gtag === "function") {
+    window.gtag("event", event, properties);
+    return;
+  }
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event, ...properties, timestamp: Date.now() });
+}
+
+/**
+ * A paid order can be confirmed on two paths (inside the pop-up, or on the page
+ * Cashfree sends people back to). Count each order once per browser.
+ */
+export function trackPaymentOnce(orderId: string, webinar: string) {
+  const key = `athenix-paid-tracked-${orderId}`;
+  try {
+    if (localStorage.getItem(key)) return;
+    localStorage.setItem(key, "1");
+  } catch {
+    /* storage blocked: fall through and track anyway */
+  }
+  trackEvent("webinar_payment_success", { webinar, transaction_id: orderId });
 }

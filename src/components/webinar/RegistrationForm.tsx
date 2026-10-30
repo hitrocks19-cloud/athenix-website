@@ -9,7 +9,7 @@ import {
   occupationOptions,
   webinars,
 } from "@/content/webinars";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackPaymentOnce } from "@/lib/analytics";
 import { useWebinarModal } from "./WebinarModalContext";
 
 type Status = "idle" | "submitting" | "paying" | "verifying" | "success" | "error";
@@ -84,7 +84,7 @@ export default function RegistrationForm({
       const json = await res.json().catch(() => ({}));
       if (res.ok && json.paid) {
         setPaymentRef(json.paymentId ?? null);
-        trackEvent("webinar_payment_success", { webinar: order.webinarTitle });
+        trackPaymentOnce(order.orderId, order.webinarTitle);
         orderCache.current = null;
         setStatus("success");
         return;

@@ -34,9 +34,15 @@ export const privacyPolicySections: LegalSection[] = [
     bullets: ["Deliver educational services", "Communicate course updates", "Provide support", "Meet legal and regulatory requirements"],
   },
   {
+    heading: "Website Analytics",
+    body: [
+      "We use Google Analytics to understand how visitors use our website, for example which pages are viewed and which buttons are clicked. It uses cookies and similar technologies and collects usage information such as pages visited, device and approximate location. We do not send your name, email address or phone number to Google Analytics.",
+    ],
+  },
+  {
     heading: "Data Sharing",
     body: ["Information may be shared only with:"],
-    bullets: ["Payment gateway providers (e.g., Cashfree)", "Legal or regulatory authorities if required by law"],
+    bullets: ["Payment gateway providers (e.g., Cashfree)", "Analytics providers (Google Analytics), limited to anonymous usage data", "Legal or regulatory authorities if required by law"],
   },
   {
     heading: "",

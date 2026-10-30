@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ButtonLink } from "@/components/ui/Button";
 import { companyInfo } from "@/content/company";
+import { trackPaymentOnce } from "@/lib/analytics";
 
 type State =
   | { kind: "checking" }
@@ -36,7 +37,10 @@ export default function PaymentStatus() {
         const json = await res.json().catch(() => ({}));
         if (cancelled) return;
         if (!res.ok) setState({ kind: "error", message: json.message ?? "We couldn't check your payment just now." });
-        else if (json.paid) setState({ kind: "paid", paymentId: json.paymentId });
+        else if (json.paid) {
+          trackPaymentOnce(orderId, "webinar");
+          setState({ kind: "paid", paymentId: json.paymentId });
+        }
         else setState({ kind: "pending" });
       } catch {
         if (!cancelled) setState({ kind: "error", message: "We couldn't check your payment just now." });
