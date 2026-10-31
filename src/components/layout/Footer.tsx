@@ -23,14 +23,6 @@ export default function Footer() {
                   {companyInfo.email}
                 </a>
               </li>
-              <li>
-                <a href={`tel:${companyInfo.phoneHref}`} className="hover:text-white">
-                  {companyInfo.phone}
-                </a>
-              </li>
-              <li className="text-white/40">
-                {companyInfo.address.line1} {companyInfo.address.line2} {companyInfo.address.line3}
-              </li>
             </ul>
 
             <div className="mt-5 flex items-center gap-3">

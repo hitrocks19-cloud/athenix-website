@@ -6,8 +6,6 @@
 export const companyInfo = {
   legalName: "Athenix Learning",
   email: "support@athenixlearning.com",
-  phone: "+91 8690027191",
-  phoneHref: "+918690027191",
   address: {
     line1: "701, Parijat Arcade,",
     line2: "Vikram Nagar, Kalwa West,",

@@ -59,10 +59,6 @@ export default function ContactPage() {
               Or write to us at{" "}
               <a href={`mailto:${companyInfo.email}`} className="text-flare-400 hover:text-flare-300">
                 {companyInfo.email}
-              </a>{" "}
-              or call{" "}
-              <a href={`tel:${companyInfo.phoneHref}`} className="text-flare-400 hover:text-flare-300">
-                {companyInfo.phone}
               </a>
               .
             </p>

@@ -18,10 +18,8 @@ export function organizationJsonLd() {
     description:
       "Athenix Learning trains individuals and professionals in Data Analytics, Data Science and AI. Athenix Consultancy builds AI and automation solutions for businesses.",
     email: companyInfo.email,
-    telephone: companyInfo.phone,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "701, Parijat Arcade, Vikram Nagar, Kalwa West",
       addressLocality: "Thane",
       addressRegion: "Maharashtra",
       postalCode: "400605",
@@ -31,7 +29,6 @@ export function organizationJsonLd() {
       "@type": "ContactPoint",
       contactType: "customer support",
       email: companyInfo.email,
-      telephone: companyInfo.phone,
       areaServed: "IN",
       availableLanguage: ["English", "Hindi"],
     },
