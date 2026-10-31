@@ -62,6 +62,13 @@ export default function ContactPage() {
               </a>
               .
             </p>
+            <p className="mt-3 text-white/40">
+              {companyInfo.address.line1}
+              <br />
+              {companyInfo.address.line2}
+              <br />
+              {companyInfo.address.line3}
+            </p>
           </div>
         </Container>
       </section>
