@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Container from "@/components/ui/Container";
 import LegalContent from "@/components/ui/LegalContent";
+import BusinessDetails from "@/components/ui/BusinessDetails";
 import { termsSections } from "@/content/legal";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function TermsPage() {
         </Link>
         .
       </p>
+      <BusinessDetails lastUpdated="26 November 2026" />
     </Container>
   );
 }

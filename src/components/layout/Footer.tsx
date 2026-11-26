@@ -23,6 +23,11 @@ export default function Footer() {
                   {companyInfo.email}
                 </a>
               </li>
+              <li>
+                <a href={companyInfo.phoneHref} className="hover:text-white">
+                  {companyInfo.phone}
+                </a>
+              </li>
             </ul>
 
             <div className="mt-5 flex items-center gap-3">
@@ -77,6 +82,11 @@ export default function Footer() {
                   Get a Free Consultation
                 </Link>
               </li>
+              <li>
+                <a href={companyInfo.products.linkedinAutomation.url} className="hover:text-white">
+                  LinkedIn Automation (subscription)
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -109,7 +119,7 @@ export default function Footer() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-5 border-t border-white/10 pt-6 text-xs text-white/40 lg:justify-between">
           <p>© {new Date().getFullYear()} Athenix. All rights reserved.</p>
-          <p>Athenix Learning · Athenix Consultancy</p>
+          <p>Athenix Learning (Proprietor: {companyInfo.proprietor}) · Athenix Consultancy · Thane, Maharashtra</p>
           <div className="flex shrink-0 items-center gap-4">
             <a
               href="https://elevenlabs.io/startup-grants"

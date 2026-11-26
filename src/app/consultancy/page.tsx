@@ -11,6 +11,7 @@ import PinnedRevealSection from "@/components/ui/PinnedRevealSection";
 import ClipReveal from "@/components/ui/ClipReveal";
 import { consultancyServices, consultancyUseCases } from "@/content/services";
 import { consultancyHeroCopy } from "@/content/site";
+import { companyInfo } from "@/content/company";
 
 export const metadata: Metadata = {
   title: "AI Automation & Data Dashboard Consultancy",
@@ -84,6 +85,34 @@ export default function ConsultancyPage() {
       </section>
 
       <ConsultancyProcess />
+
+      <section id="products" className="py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Products"
+            title="Ready-to-use software"
+            description="Subscription products built and sold by Athenix Learning under the Athenix Consultancy brand."
+            align="center"
+          />
+          <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+            <h3 className="font-display text-xl font-semibold text-white">{companyInfo.products.linkedinAutomation.name}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/60 sm:text-base">
+              AI writes, designs and schedules LinkedIn posts for your niche, then publishes them on time through LinkedIn&apos;s official connection. Includes a 30-day content calendar, branded post designs, and job-seeker tools with an ATS resume builder.
+            </p>
+            <ul className="mt-4 list-disc space-y-1.5 pl-5 text-sm text-white/60">
+              <li>Monthly plans from ₹299 (Job Seeker) to ₹2,999 (Agency), with quarterly and yearly options. Prices in INR.</li>
+              <li>7-day free trial, then automatic monthly billing by UPI Autopay, card or eNACH through Cashfree Payments.</li>
+              <li>Cancel anytime from the Billing page or your UPI app.</li>
+            </ul>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <ButtonLink href={companyInfo.products.linkedinAutomation.url}>Visit {companyInfo.products.linkedinAutomation.host}</ButtonLink>
+              <ButtonLink href={`${companyInfo.products.linkedinAutomation.url}/pricing`} variant="secondary">
+                See plans &amp; pricing
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       <section className="py-20 sm:py-28">
         <Container>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Container from "@/components/ui/Container";
 import LegalContent from "@/components/ui/LegalContent";
+import BusinessDetails from "@/components/ui/BusinessDetails";
 import { refundPolicySections } from "@/content/legal";
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ export default function RefundPolicyPage() {
       <div className="mt-6">
         <LegalContent sections={refundPolicySections} />
       </div>
+      <BusinessDetails lastUpdated="26 November 2026" />
     </Container>
   );
 }
