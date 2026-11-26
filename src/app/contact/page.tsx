@@ -7,6 +7,7 @@ import { ButtonLink } from "@/components/ui/Button";
 import { faqs } from "@/content/faqs";
 import { companyInfo } from "@/content/company";
 import BookWebinarButton from "@/components/webinar/BookWebinarButton";
+import BusinessDetails from "@/components/ui/BusinessDetails";
 
 export const metadata: Metadata = {
   title: "Contact Us: Courses, Corporate Training & AI Consultancy",
@@ -62,13 +63,16 @@ export default function ContactPage() {
               </a>
               .
             </p>
-            <p className="mt-3 text-white/40">
-              {companyInfo.address.line1}
-              <br />
-              {companyInfo.address.line2}
-              <br />
-              {companyInfo.address.line3}
+            <p className="mt-3">
+              Or call{" "}
+              <a href={companyInfo.phoneHref} className="text-flare-400 hover:text-flare-300">
+                {companyInfo.phone}
+              </a>
+              .
             </p>
+          </div>
+          <div className="mx-auto flex justify-center">
+            <BusinessDetails />
           </div>
         </Container>
       </section>
